@@ -6,6 +6,8 @@ import '../../../config/supabase_config.dart';
 import '../../../data/models/user_model.dart';
 import '../../screens/profile/edit_profile_screen.dart';
 import '../../screens/profile/stats_screen.dart';
+import '../../screens/profile/achievements_screen.dart';
+import '../../screens/profile/settings_screen.dart';
 import '../auth/login_screen.dart';
 
 // Provider for user profile
@@ -98,7 +100,12 @@ class ProfileScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             onPressed: () {
-              // TODO: Navigate to settings
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -389,6 +396,28 @@ class ProfileScreen extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       side: const BorderSide(color: AppColors.primary),
                       foregroundColor: AppColors.primary,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AchievementsScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.emoji_events),
+                    label: const Text('Başarılar ve Rozetler'),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      side: const BorderSide(color: AppColors.warning),
+                      foregroundColor: AppColors.warning,
                     ),
                   ),
                 ),
