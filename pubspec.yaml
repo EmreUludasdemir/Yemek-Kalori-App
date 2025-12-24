@@ -1,0 +1,100 @@
+name: turk_kalori
+description: AI destekli Türk kalori takip uygulaması
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.4.0
+
+  # Navigation
+  go_router: ^12.0.0
+
+  # Backend
+  supabase_flutter: ^2.0.0
+  firebase_core: ^2.24.0
+  firebase_messaging: ^14.7.0
+
+  # UI Components
+  fl_chart: ^0.65.0
+  percent_indicator: ^4.2.3
+  cached_network_image: ^3.3.0
+  shimmer: ^3.0.0
+  lottie: ^2.7.0
+  flutter_svg: ^2.0.9
+
+  # Image & Camera
+  image_picker: ^1.0.4
+  camera: ^0.10.5
+  flutter_image_compress: ^2.1.0
+  image_cropper: ^5.0.1
+
+  # Barcode
+  mobile_scanner: ^3.5.1
+
+  # ML/AI
+  tflite_flutter: ^0.10.4
+  image: ^4.1.3
+
+  # Storage & Cache
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
+
+  # Networking
+  dio: ^5.4.0
+  connectivity_plus: ^5.0.2
+
+  # Utils
+  intl: ^0.18.1
+  uuid: ^4.2.1
+  equatable: ^2.0.5
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  timeago: ^3.6.0
+
+  # Notifications
+  flutter_local_notifications: ^16.2.0
+
+  # Icons
+  cupertino_icons: ^1.0.6
+  font_awesome_flutter: ^10.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  build_runner: ^2.4.7
+  freezed: ^2.4.5
+  json_serializable: ^6.7.1
+  hive_generator: ^2.0.1
+  mockito: ^5.4.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/lottie/
+    - assets/ml_models/
+    - assets/fonts/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
