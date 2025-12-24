@@ -7,6 +7,8 @@ import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/register_screen.dart';
 import '../presentation/screens/home/home_screen.dart';
 import '../presentation/screens/social/feed_screen.dart';
+import '../presentation/screens/camera/camera_picker_screen.dart';
+import '../presentation/screens/profile/profile_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
@@ -74,9 +76,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   // List of screens for bottom navigation
   final List<Widget> _screens = [
     const HomeScreen(),
-    const PlaceholderAddScreen(),
+    const CameraPickerScreen(),
     const FeedScreen(),
-    const PlaceholderProfileScreen(),
+    const ProfileScreen(),
   ];
 
   @override
