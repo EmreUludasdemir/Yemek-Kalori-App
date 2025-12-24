@@ -10,6 +10,7 @@ import '../../../data/models/user_model.dart';
 import '../../widgets/food/calorie_progress_ring.dart';
 import '../../widgets/food/macro_bar.dart';
 import '../../widgets/food/meal_section.dart';
+import '../food_log/food_search_screen.dart';
 
 // Provider for daily nutrition data
 final dailyNutritionProvider = FutureProvider.autoDispose<DailyNutrition>((ref) async {
@@ -461,10 +462,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _addFood(String mealType) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Yemek ekleme ekranı yakında gelecek! Öğün: $mealType'),
-        duration: const Duration(seconds: 2),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FoodSearchScreen(mealType: mealType),
       ),
     );
   }
