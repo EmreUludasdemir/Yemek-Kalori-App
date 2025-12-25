@@ -38,7 +38,7 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 ## 📊 Veritabanı Yapısı
 
 ### Ana Tablolar
-1. **users** - Kullanıcı profilleri
+1. **profiles** - Kullanıcı profilleri (bio, avatar, is_public, followers/following counts)
 2. **food_items** - Türk yemekleri veritabanı
 3. **food_logs** - Günlük yemek kayıtları
 4. **achievements** - Başarım sistemi
@@ -46,6 +46,11 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 6. **meal_templates** - Yeniden kullanılabilir şablonlar
 7. **weight_entries** - Kilo takibi kayıtları
 8. **weight_goals** - Hedef kilo ayarları
+9. **posts** - Sosyal gönderi paylaşımları (Phase 4)
+10. **likes** - Post beğenileri (Phase 4)
+11. **comments** - Post yorumları (Phase 4)
+12. **follows** - Takip sistemi (Phase 4)
+13. **notifications** - Bildirim sistemi (Phase 4)
 
 ### Hive Boxes (Local Storage)
 - **onboarding_box** - İlk kullanım kontrolü
@@ -187,6 +192,8 @@ lib/
 └── services/            # Business logic
     ├── meal_planning_service.dart
     ├── weight_tracking_service.dart
+    ├── water_reminder_service.dart
+    ├── social_service.dart          # Phase 4 - 40+ methods
     ├── recent_searches_service.dart
     ├── smart_suggestions_service.dart
     └── nutrition_service.dart
@@ -196,19 +203,21 @@ lib/
 
 **Faz 1** ✅ Tasarım Sistemi & UI Polish
 **Faz 2** ✅ Kullanıcı Deneyimi (Onboarding, Tutoriallar)
-**Faz 3** 🟡 Advanced Features (Meal Planning, Weight Tracking, Water Reminders)
-**Faz 4** ⏳ Sosyal & Topluluk
-**Faz 5** ⏳ Teknik İyileştirmeler (Offline, Cache, Performance)
+**Faz 3** ✅ Advanced Features (Meal Planning, Weight Tracking, Water Reminders)
+**Faz 4** ✅ Sosyal & Topluluk (Profiles, Feed, Follow, Like/Comment, Leaderboard)
+**Faz 5** ⏳ Teknik İyileştirmeler (Offline, Cache, Performance, Tests)
 **Faz 6** ⏳ Premium Özellikler
 
 ## 📈 Metrikler
 
-- **Toplam Satır:** ~15,000+ (Phase 3 sonrası)
-- **Model Sayısı:** 15+
-- **Servis Sayısı:** 10+
-- **Ekran Sayısı:** 25+
-- **Widget Sayısı:** 40+
+- **Toplam Satır:** ~29,000+ (Phase 4 sonrası)
+- **Model Sayısı:** 20+
+- **Servis Sayısı:** 14+
+- **Ekran Sayısı:** 37+
+- **Widget Sayısı:** 52+
 - **Animasyon Tipi:** 10+
+- **API Methodları:** 100+
+- **Features:** 150+
 
 ## 🎓 Öğrenilen Dersler
 
@@ -228,10 +237,10 @@ lib/
 1. AI yemek tanıma backend'i bağlanmamış
 2. Offline mod henüz yok
 3. Health app entegrasyonu yok (Apple Health, Google Fit)
-4. Social features eksik
-5. Recipe database boş
-6. Water reminders eksik
-7. Export/Import limited (sadece weight CSV)
+4. Recipe database boş
+5. Image picker implementation eksik (post creation için)
+6. Pagination eksik (feed, comments için TODO)
+7. Real-time subscription eksik (canlı bildirim için)
 
 ## 🔐 Environment Variables
 
@@ -259,4 +268,4 @@ FIREBASE_APP_ID=your_app_id
 ---
 
 *Son Güncelleme: 2025-12-25*
-*Versiyon: Phase 3 - COMPLETE (Meal Planning, Weight Tracking, Water Reminders)*
+*Versiyon: Phase 4 - COMPLETE (Social Features: Profiles, Feed, Follow, Like/Comment, Notifications, Leaderboard)*

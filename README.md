@@ -83,6 +83,17 @@ MyFitnessPal ve YAZIO gibi uluslararası uygulamaların Türk yemekleri konusund
 - 🔄 **Öğün Hatırlatıcıları** (planlanan)
 - 🔄 **Başarım Bildirimleri** (planlanan)
 
+#### 👥 Sosyal Özellikler (Phase 4 ✅)
+- ✅ **Kullanıcı Profilleri** - Public/private hesaplar, bio, avatar
+- ✅ **Gönderi Paylaşımı** - Meal posts, fotoğraf yükleme
+- ✅ **Takip Sistemi** - Follow/unfollow, takipçi/takip edilen listeleri
+- ✅ **Activity Feed** - Following ve popular feed'ler
+- ✅ **Like & Comment** - Post beğenme ve yorum yapma
+- ✅ **Liderlik Tablosu** - 3 kategori (Seri, Gönderiler, Takipçiler)
+- ✅ **Bildirim Sistemi** - Like, comment, follow bildirimleri
+- ✅ **Kullanıcı Arama** - Username/full name search
+- ✅ **Profil Düzenleme** - Avatar, bio, username, privacy settings
+
 ---
 
 ## 🛠️ Teknoloji Stack
@@ -449,14 +460,76 @@ FIREBASE_API_KEY=your-api-key
 
 ---
 
-### 🔄 Phase 4: Social Features (Planned)
+### ✅ Phase 4: Social Features (100%)
 
-- [ ] User profiles (public/private)
-- [ ] Follow system (follow/unfollow)
-- [ ] Activity feed (posts from following)
-- [ ] Meal sharing (create posts with photos)
-- [ ] Like & comment
-- [ ] Leaderboards (achievements)
+#### A. User Profiles & Authentication
+- ✅ Public/private profile settings
+- ✅ Profile editing (username, full name, bio, avatar)
+- ✅ Profile viewing (own + others)
+- ✅ User stats display (posts, followers, following, streak)
+- ✅ User search by username/name
+
+**Code:** ~1,100 lines | 2 screens (profile, edit)
+
+#### B. Social Feed & Posts
+- ✅ Activity feed (Following + Popular tabs)
+- ✅ Post creation (text + photos)
+- ✅ Post display with PostCard widget
+- ✅ Post editing/deletion
+- ✅ Image upload to Supabase Storage
+- ✅ Empty states & error handling
+
+**Code:** ~1,300 lines | 2 screens (feed, create post) + 1 widget (PostCard)
+
+#### C. Engagement Features
+- ✅ Like/Unlike posts (optimistic updates)
+- ✅ Comment on posts
+- ✅ Nested comments support
+- ✅ Comment deletion
+- ✅ View who liked a post
+
+**Code:** ~600 lines | 1 widget (CommentsBottomSheet)
+
+#### D. Follow System
+- ✅ Follow/unfollow users
+- ✅ Followers list
+- ✅ Following list
+- ✅ Follow button in multiple contexts
+- ✅ Suggested users to follow
+
+**Code:** ~700 lines | 1 screen (followers/following)
+
+#### E. Notifications
+- ✅ Notification system (like, comment, follow)
+- ✅ Real-time notification triggers
+- ✅ Unread count badge
+- ✅ Mark as read/mark all as read
+- ✅ Notification navigation
+
+**Code:** ~500 lines | 1 screen (notifications)
+
+#### F. Leaderboard
+- ✅ Streak leaderboard
+- ✅ Posts leaderboard
+- ✅ Followers leaderboard
+- ✅ Medal system for top 3
+- ✅ Refresh functionality
+
+**Code:** ~450 lines | 1 screen (leaderboard)
+
+#### G. Social Service
+- ✅ 40+ API methods for all social features
+- ✅ Posts CRUD operations
+- ✅ Like/comment management
+- ✅ Follow system operations
+- ✅ Notifications management
+- ✅ User profile operations
+- ✅ Leaderboard queries
+- ✅ Image upload to storage
+
+**Code:** ~690 lines | 1 service (social_service.dart)
+
+**Phase 4 Total:** ~6,000 lines | 7 screens + 2 widgets + 1 service + 2 models
 
 ---
 
@@ -552,13 +625,13 @@ Detaylar için: [.ai/README.md](.ai/README.md)
 ## 📊 Metrics
 
 ```
-📝 Total Lines of Code:    ~23,000
-📁 Total Files:            ~100
-🖼️ Screens:                30+
-🧩 Widgets:                50+
-📦 Models:                 18+
-⚙️ Services:               13+
-🎯 Features:               100+
+📝 Total Lines of Code:    ~29,000
+📁 Total Files:            ~120
+🖼️ Screens:                37+
+🧩 Widgets:                52+
+📦 Models:                 20+
+⚙️ Services:               14+
+🎯 Features:               150+
 ```
 
 ---
@@ -613,12 +686,11 @@ Tarih/saat formatları **intl** package ile Türkçe'ye uyarlanmış.
 Detaylı yol haritası: [docs/YOL_HARITASI.md](docs/YOL_HARITASI.md)
 
 **Özet:**
-- ✅ **Phase 1-3:** Complete (Design + UX + Advanced Features)
-- 🔄 **Phase 4:** Social Features (4-6 hafta)
+- ✅ **Phase 1-4:** Complete (Design + UX + Advanced Features + Social)
 - 🔄 **Phase 5:** Technical Improvements (2-3 hafta)
 - 🔄 **Phase 6:** Premium Features (8-10 hafta)
 
-**Estimated MVP to Production:** 6 months
+**Estimated Production Ready:** 2-3 months (Phase 5 & 6)
 
 ---
 
@@ -658,7 +730,7 @@ Sorularınız için:
 **Built with ❤️ using Flutter**
 
 *Last Updated: 2025-12-25*
-*Version: Phase 3 Complete*
+*Version: Phase 4 Complete*
 
 [⬆ Back to top](#-türkkalori---ai-destekli-kalori-takip-uygulaması)
 

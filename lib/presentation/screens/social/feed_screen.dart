@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../data/models/post_model.dart';
+import '../../../services/social_service.dart';
 import '../../widgets/social/post_card.dart';
+import 'create_post_screen.dart';
+import 'notifications_screen.dart';
+import 'leaderboard_screen.dart';
+
+// Providers for feed data
+final followingFeedProvider = FutureProvider.autoDispose<List<Post>>((ref) async {
+  return await SocialService.getFeedPosts(feedType: 'following');
+});
+
+final popularFeedProvider = FutureProvider.autoDispose<List<Post>>((ref) async {
+  return await SocialService.getFeedPosts(feedType: 'all');
+});
 
 class FeedScreen extends ConsumerStatefulWidget {
   const FeedScreen({super.key});
@@ -37,8 +48,7 @@ class _FeedScreenState extends ConsumerState<FeedScreen>
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      // Load more posts (pagination)
-      // ref.read(feedProvider.notifier).loadMore();
+      // TODO: Load more posts (pagination)
     }
   }
 
@@ -49,9 +59,21 @@ class _FeedScreenState extends ConsumerState<FeedScreen>
         title: const Text(AppStrings.explore),
         actions: [
           IconButton(
+            icon: const Icon(Icons.leaderboard),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const LeaderboardScreen()),
+              );
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () {
-              // Navigate to notifications
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const NotificationsScreen()),
+              );
             },
           ),
         ],
@@ -75,7 +97,16 @@ class _FeedScreenState extends ConsumerState<FeedScreen>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to create post
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const CreatePostScreen()),
+          ).then((created) {
+            if (created == true) {
+              // Refresh feeds
+              ref.invalidate(followingFeedProvider);
+              ref.invalidate(popularFeedProvider);
+            }
+          });
         },
         backgroundColor: AppColors.primary,
         child: const Icon(Icons.add, color: Colors.white),
@@ -84,118 +115,129 @@ class _FeedScreenState extends ConsumerState<FeedScreen>
   }
 
   Widget _buildFollowingFeed() {
-    // TODO: Replace with actual data from Supabase
-    final mockPosts = _getMockPosts();
+    final feedAsync = ref.watch(followingFeedProvider);
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        // Refresh feed
-        await Future.delayed(const Duration(seconds: 1));
+    return feedAsync.when(
+      data: (posts) {
+        if (posts.isEmpty) {
+          return _buildEmptyState(
+            icon: Icons.people_outline,
+            title: 'Henüz gönderi yok',
+            subtitle: 'Takip ettiğiniz kişilerin gönderileri burada görünür',
+          );
+        }
+
+        return RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(followingFeedProvider);
+          },
+          child: ListView.builder(
+            controller: _scrollController,
+            padding: const EdgeInsets.only(bottom: 80),
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              return PostCard(post: posts[index]);
+            },
+          ),
+        );
       },
-      child: ListView.builder(
-        controller: _scrollController,
-        padding: const EdgeInsets.only(bottom: 80),
-        itemCount: mockPosts.length,
-        itemBuilder: (context, index) {
-          return PostCard(post: mockPosts[index]);
-        },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text('Hata: $error'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => ref.invalidate(followingFeedProvider),
+              child: const Text('Yeniden Dene'),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildPopularFeed() {
-    final mockPosts = _getMockPosts();
+    final feedAsync = ref.watch(popularFeedProvider);
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        await Future.delayed(const Duration(seconds: 1));
+    return feedAsync.when(
+      data: (posts) {
+        if (posts.isEmpty) {
+          return _buildEmptyState(
+            icon: Icons.explore_outlined,
+            title: 'Henüz gönderi yok',
+            subtitle: 'İlk gönderiyi sen yap!',
+          );
+        }
+
+        return RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(popularFeedProvider);
+          },
+          child: ListView.builder(
+            padding: const EdgeInsets.only(bottom: 80),
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              return PostCard(post: posts[index]);
+            },
+          ),
+        );
       },
-      child: ListView.builder(
-        padding: const EdgeInsets.only(bottom: 80),
-        itemCount: mockPosts.length,
-        itemBuilder: (context, index) {
-          return PostCard(post: mockPosts[index]);
-        },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
+            Text('Hata: $error'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => ref.invalidate(popularFeedProvider),
+              child: const Text('Yeniden Dene'),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // Mock data for development
-  List<Post> _getMockPosts() {
-    return [
-      Post(
-        id: '1',
-        userId: 'user1',
-        content: 'Bugünkü öğle yemeğim 🥗\nTavuklu Salata - 320 kcal',
-        imageUrl: 'https://picsum.photos/seed/food1/400/300',
-        likesCount: 24,
-        commentsCount: 5,
-        createdAt: DateTime.now().subtract(const Duration(hours: 2)),
-        updatedAt: DateTime.now().subtract(const Duration(hours: 2)),
-        user: const UserProfile(
-          id: 'user1',
-          username: 'ayse_y',
-          fullName: 'Ayşe Yılmaz',
-          avatarUrl: 'https://i.pravatar.cc/150?img=1',
-          createdAt: '2024-01-01T00:00:00.000Z',
+  Widget _buildEmptyState({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 64, color: AppColors.textSecondary),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 14,
+                color: AppColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
-        isLikedByCurrentUser: false,
       ),
-      Post(
-        id: '2',
-        userId: 'user2',
-        content: 'Ev yapımı köfte 😋\nIzgara Köfte - 450 kcal\n\nMalzemeler:\n• Dana kıyma 150g\n• Soğan, maydanoz...',
-        imageUrl: 'https://picsum.photos/seed/food2/400/300',
-        likesCount: 42,
-        commentsCount: 12,
-        createdAt: DateTime.now().subtract(const Duration(hours: 5)),
-        updatedAt: DateTime.now().subtract(const Duration(hours: 5)),
-        user: const UserProfile(
-          id: 'user2',
-          username: 'mehmet_k',
-          fullName: 'Mehmet Kaya',
-          avatarUrl: 'https://i.pravatar.cc/150?img=12',
-          createdAt: '2024-01-01T00:00:00.000Z',
-        ),
-        isLikedByCurrentUser: true,
-      ),
-      Post(
-        id: '3',
-        userId: 'user3',
-        content: 'Kahvaltı keyfi ☕\nMenemen + Simit = 530 kcal',
-        imageUrl: 'https://picsum.photos/seed/food3/400/300',
-        likesCount: 18,
-        commentsCount: 3,
-        createdAt: DateTime.now().subtract(const Duration(hours: 8)),
-        updatedAt: DateTime.now().subtract(const Duration(hours: 8)),
-        user: const UserProfile(
-          id: 'user3',
-          username: 'zeynep_a',
-          fullName: 'Zeynep Arslan',
-          avatarUrl: 'https://i.pravatar.cc/150?img=5',
-          createdAt: '2024-01-01T00:00:00.000Z',
-        ),
-        isLikedByCurrentUser: false,
-      ),
-      Post(
-        id: '4',
-        userId: 'user4',
-        content: '30 günlük seri kırdım! 🔥\nBugün de hedefimin altındayım 💪',
-        imageUrl: null,
-        likesCount: 56,
-        commentsCount: 20,
-        createdAt: DateTime.now().subtract(const Duration(days: 1)),
-        updatedAt: DateTime.now().subtract(const Duration(days: 1)),
-        user: const UserProfile(
-          id: 'user4',
-          username: 'can_demir',
-          fullName: 'Can Demir',
-          avatarUrl: 'https://i.pravatar.cc/150?img=15',
-          streakDays: 30,
-          createdAt: '2024-01-01T00:00:00.000Z',
-        ),
-        isLikedByCurrentUser: true,
-      ),
-    ];
+    );
   }
 }
