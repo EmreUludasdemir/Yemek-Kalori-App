@@ -98,14 +98,40 @@ docs/
 
 Tüm tablolar için RLS politikaları tanımlanmış, kullanıcılar sadece kendi verilerine ve public verilere erişebilir.
 
-## 🚀 Kurulum
+## 🚀 Hızlı Başlangıç (Quick Start)
+
+**Uygulamayı hemen çalıştırmak için:**
+
+### Windows:
+```cmd
+START.bat dosyasına çift tıklayın
+```
+
+### macOS/Linux:
+```bash
+./start.sh
+```
+
+**VEYA Manuel:**
+```bash
+flutter pub get
+flutter run -d chrome
+```
+
+**📱 İlk çalıştırma 2-3 dakika sürebilir. Tarayıcı otomatik açılacak!**
+
+**Detaylı kurulum için:** [BILGISAYARDA_CALISTIRMA.md](BILGISAYARDA_CALISTIRMA.md) dosyasına bakın.
+
+---
+
+## 🚀 Tam Kurulum
 
 ### Gereksinimler
 
 - Flutter SDK 3.0+
 - Dart SDK 3.0+
-- Supabase hesabı
-- Firebase projesi (FCM için)
+- Supabase hesabı (opsiyonel - backend için)
+- Firebase projesi (opsiyonel - FCM için)
 
 ### Adım 1: Bağımlılıkları Yükle
 
