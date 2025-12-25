@@ -10,11 +10,13 @@ TürkKalori, MyFitnessPal ve YAZIO gibi uluslararası uygulamaların Türk yemek
 
 - ✅ **AI ile Yemek Tanıma**: Fotoğraftan otomatik kalori hesaplama (TFLite + Calorie Mama API)
 - ✅ **Türk Yemekleri Veritabanı**: 150+ Türk yemeği (TürKomp verisi)
-- ✅ **Sosyal Feed**: Paylaşım, beğeni, yorum sistemi
-- 🔄 **Günlük Takip**: Kalori, protein, karbonhidrat, yağ takibi
-- 🔄 **Barkod Tarama**: Paketli ürünler için barkod okuyucu
-- 🔄 **İstatistikler**: Haftalık/aylık grafikler ve raporlar
-- 🔄 **Gamification**: Seri (streak) sistemi, başarımlar
+- ✅ **Günlük Takip**: Kalori, protein, karbonhidrat, yağ takibi
+- ✅ **Barkod Tarama**: Paketli ürünler için barkod okuyucu
+- ✅ **İstatistikler**: Haftalık/aylık grafikler ve raporlar (fl_chart)
+- ✅ **Başarımlar**: 11 başarım, 4 kategori, puan sistemi
+- ✅ **Push Notifications**: Firebase FCM entegrasyonu
+- ✅ **Dark Mode**: Kalıcı tema tercihi
+- ✅ **Sosyal Feed**: Paylaşım görüntüleme sistemi
 
 ## 🛠️ Teknoloji Stack
 
@@ -146,34 +148,64 @@ flutter run
 
 ## 📊 Tamamlanma Durumu
 
-### ✅ Tamamlanan
+### ✅ Tamamlanan (MVP %95)
 
+#### Core Features
 - [x] Proje yapısı ve klasör organizasyonu
 - [x] Tema ve tasarım sistemi (renkler, tipografi)
 - [x] Supabase veritabanı şeması (11 tablo + triggers + RLS)
 - [x] Türk yemekleri seed data (150+ yemek)
-- [x] AI yemek tanıma servisi (TFLite + Calorie Mama API)
+- [x] Authentication (login/register) + profil oluşturma
+- [x] Ana sayfa - Kalori tracking (progress ring, makro barlar)
+- [x] Yemek arama - Full-text search, kategori filtreleme
+- [x] Yemek ekleme - Porsiyon ayarlama, öğün seçimi
+- [x] Barkod tarama - mobile_scanner entegrasyonu
+- [x] Kamera/Galeri picker - AI tanıma UI
+- [x] Su takibi - Günlük bardak sayısı
+
+#### Advanced Features
+- [x] AI yemek tanıma servisi (TFLite + Calorie Mama API placeholders)
+- [x] İstatistikler - Haftalık/aylık grafikler (fl_chart)
+  - [x] Line chart (kalori grafikleri)
+  - [x] Pie chart (makro dağılımı)
+  - [x] Özet kartları
+- [x] Başarımlar - 11 başarım, 4 kategori, puan sistemi
+- [x] Push Notifications - Firebase FCM servisi
+- [x] Dark Mode - Hive ile kalıcı tema tercihi
+- [x] Ayarlar Paneli - Görünüm, bildirimler, gizlilik
 - [x] Sosyal feed ekranı ve post card widget
-- [x] Data modelleri (User, Post, Comment, Nutrition)
+- [x] Profil ekranı - Stats, hedefler, düzenleme
+- [x] Edit Profile - Hedef güncelleme
+- [x] Environment configuration (.env.example)
 
-### 🔄 Devam Eden
+#### Data & Models
+- [x] Data modelleri (User, Post, Comment, FoodLog, FoodItem)
+- [x] Service layer (Auth, Nutrition, AI, Achievement, Notification)
+- [x] Riverpod providers (state management)
+- [x] Navigation (go_router with auth guards)
 
-- [ ] Ana sayfa (kalori progress ring)
-- [ ] Authentication (login/register)
-- [ ] Yemek arama ve manuel ekleme
-- [ ] Kamera entegrasyonu
-- [ ] Barkod tarama
-- [ ] Profil ekranı
-- [ ] İstatistikler ve grafikler
-- [ ] Push notifications
-- [ ] Offline sync
+#### Testing & Documentation
+- [x] Unit testler (FoodLog, Achievement)
+- [x] README güncellendi
+- [x] .gitignore oluşturuldu
 
-### 📋 Planlanan
+### 🔄 Gelecek İyileştirmeler
 
-- [ ] Unit ve widget testleri
-- [ ] Dark mode optimizasyonları
-- [ ] Türkçe/İngilizce lokalizasyon
-- [ ] Performance optimizasyonu
+- [ ] TFLite model eğitimi (TurkishFoods-15 dataset)
+- [ ] Calorie Mama API key entegrasyonu
+- [ ] Sosyal özellikler backend (like, comment işlemleri)
+- [ ] Offline sync (Hive cache)
+- [ ] Widget testleri
+- [ ] Integration testleri
+
+### 📋 Planlanan (v2.0)
+
+- [ ] Türkçe/İngilizce lokalizasyon (i18n)
+- [ ] Yemek planlayıcı
+- [ ] Tarif veritabanı
+- [ ] Kilo takibi grafiği
+- [ ] Export (PDF/CSV)
+- [ ] Wearable entegrasyonu
 - [ ] App Store / Play Store yayını
 
 ## 🎨 UI/UX Tasarım

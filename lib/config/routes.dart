@@ -5,7 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../config/supabase_config.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/register_screen.dart';
+import '../presentation/screens/home/home_screen.dart';
 import '../presentation/screens/social/feed_screen.dart';
+import '../presentation/screens/camera/camera_picker_screen.dart';
+import '../presentation/screens/profile/profile_screen.dart';
 
 // Router provider
 final routerProvider = Provider<GoRouter>((ref) {
@@ -72,10 +75,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   // List of screens for bottom navigation
   final List<Widget> _screens = [
-    const PlaceholderHomeScreen(),
-    const PlaceholderAddScreen(),
+    const HomeScreen(),
+    const CameraPickerScreen(),
     const FeedScreen(),
-    const PlaceholderProfileScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -121,32 +124,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 }
 
 // Placeholder screens (to be implemented)
-class PlaceholderHomeScreen extends StatelessWidget {
-  const PlaceholderHomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Ana Sayfa')),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.restaurant_menu, size: 80, color: Colors.green),
-            SizedBox(height: 16),
-            Text(
-              'Ana Sayfa',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text('Kalori takibi burada gösterilecek'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class PlaceholderAddScreen extends StatelessWidget {
   const PlaceholderAddScreen({super.key});
 
