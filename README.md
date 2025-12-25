@@ -122,12 +122,27 @@ flutter pub get
 5. Storage'da 3 bucket oluşturun: `avatars`, `food_images`, `post_images`
 6. `lib/config/supabase_config.dart` dosyasındaki URL ve API key'i güncelleyin
 
-### Adım 3: Firebase Kurulumu
+### Adım 3: Firebase Kurulumu ✅
 
-1. [Firebase Console](https://console.firebase.google.com)'da proje oluşturun
-2. iOS ve Android uygulamalarını ekleyin
-3. `google-services.json` (Android) ve `GoogleService-Info.plist` (iOS) dosyalarını indirin
-4. `lib/config/firebase_config.dart` dosyasını güncelleyin
+Firebase yapılandırması tamamlanmıştır. Kurulum bilgileri:
+
+**Android:**
+- Package Name: `com.Turkkalori.app`
+- `google-services.json` dosyası: `android/app/google-services.json` konumunda
+- Gradle yapılandırması tamamlandı (Firebase BoM 34.7.0)
+
+**iOS:**
+- Bundle ID: `comTurkkalori.app`
+- `GoogleService-Info.plist` dosyası: `ios/Runner/GoogleService-Info.plist` konumunda
+- Firebase SDK entegrasyonu hazır
+
+**Firebase Servisleri:**
+- ✅ Firebase Cloud Messaging (FCM) - Push notifications
+- ✅ Firebase Analytics
+- ✅ Project ID: `turkkalori`
+- ✅ Storage Bucket: `turkkalori.firebasestorage.app`
+
+**Not:** Firebase yapılandırma dosyaları `.gitignore`'da listelenmiştir ve repo'ya commit edilmemiştir.
 
 ### Adım 4: API Key'leri Ayarlayın
 

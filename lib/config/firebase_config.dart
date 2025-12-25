@@ -44,20 +44,20 @@ class FirebaseConfig {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_ANDROID_API_KEY',
-    appId: 'YOUR_ANDROID_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
+    apiKey: 'AIzaSyBmWfH0JcS4HMsBetQs_czzOBQWu5aC3uU',
+    appId: '1:851570875992:android:a06b4eb6667cfc86f4b42d',
+    messagingSenderId: '851570875992',
+    projectId: 'turkkalori',
+    storageBucket: 'turkkalori.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_IOS_API_KEY',
-    appId: 'YOUR_IOS_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    iosBundleId: 'com.example.turkKalori',
+    apiKey: 'AIzaSyB-BGTsuwG6aDjs6uA-fLMn5O1IHIUNVOI',
+    appId: '1:851570875992:ios:a4854dc84269bb26f4b42d',
+    messagingSenderId: '851570875992',
+    projectId: 'turkkalori',
+    storageBucket: 'turkkalori.firebasestorage.app',
+    iosBundleId: 'comTurkkalori.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
