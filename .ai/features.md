@@ -326,34 +326,56 @@ Tüm özelliklerin detaylı listesi ve implement durumları.
 **Export:**
 - exportWeightDataCSV() - Date, weight, notes
 
-### ⏳ Weight UI (Planned)
-- Weight entry screen
-- Line chart (12 weeks)
-- Goal progress card
-- Photo gallery
-- Body measurements form
-- BMI calculator
+### ✅ Weight UI (Phase 3)
+**Files:**
+- `lib/presentation/screens/weight/weight_tracking_screen.dart` (~800 lines)
+- `lib/presentation/screens/weight/add_weight_entry_screen.dart` (~400 lines)
+- `lib/presentation/screens/weight/weight_goal_screen.dart` (~500 lines)
+
+**Features:**
+- ✅ Weight entry screen with date picker
+- ✅ Line chart (fl_chart, last 30 entries)
+- ✅ Goal progress card with percentage
+- ✅ Body measurements form (neck, waist, hips, chest)
+- ✅ BMI calculator (in service)
+- ✅ History tab with swipe-to-delete
+- ✅ Stats cards (highest, lowest, average)
+- ✅ Goal wizard with prediction
+- ✅ Healthy weight change validation
+- ❌ Photo gallery (planned)
 
 ---
 
 ## 💧 Water Tracking
 
-### 🟡 Water System (Partial)
-**File:** `lib/presentation/screens/home/home_screen.dart`
+### ✅ Water System (Phase 3)
+**Files:**
+- `lib/presentation/screens/home/home_screen.dart`
+- `lib/services/water_reminder_service.dart` (~350 lines)
+- `lib/presentation/screens/settings/water_reminder_settings_screen.dart` (~500 lines)
 
-**Current:**
+**Tracking:**
 - ✅ Glass counter (8 glasses target)
 - ✅ Progress bar
 - ✅ Add water button
 - ✅ Hive persistence
 - ✅ Daily reset (midnight)
 
+**Reminder System:**
+- ✅ Water reminders (flutter_local_notifications)
+- ✅ Interval scheduling (15-240 minutes)
+- ✅ Active hours (start/end time)
+- ✅ 4 preset schedules (Frequent, Regular, Relaxed, Work Hours)
+- ✅ Random motivational messages (8 variants)
+- ✅ Settings screen (sliders, toggles, presets)
+- ✅ Test notification button
+- ✅ Statistics (reminders per day)
+
 **Missing:**
-- ❌ Water reminders (notifications)
 - ❌ Custom containers (bottle sizes)
-- ❌ Hydration stats screen
+- ❌ Hydration stats screen (dedicated)
 - ❌ Streak tracking
-- ❌ Activity-based reminders
+- ❌ Activity-based reminders (step counter integration)
 
 ---
 
