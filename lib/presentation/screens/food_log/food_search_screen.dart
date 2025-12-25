@@ -7,15 +7,21 @@ import '../../../services/nutrition_service.dart';
 import '../../../config/supabase_config.dart';
 import 'add_food_screen.dart';
 import 'barcode_scanner_screen.dart';
+import '../../widgets/food/quick_add_section.dart';
+import '../../widgets/common/empty_state.dart';
+import '../../widgets/loading/skeleton_loader.dart';
+import '../../widgets/common/swipeable_item.dart';
+import '../../widgets/animations/page_transitions.dart';
+import '../../../services/recent_searches_service.dart';
 
 final nutritionServiceProvider = Provider((ref) => NutritionService());
 
 class FoodSearchScreen extends ConsumerStatefulWidget {
-  final String mealType;
+  final String? mealType;
 
   const FoodSearchScreen({
     super.key,
-    required this.mealType,
+    this.mealType,
   });
 
   @override
@@ -30,6 +36,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
   List<FoodItem> _searchResults = [];
   List<FoodItem> _recentFoods = [];
   List<FoodItem> _popularFoods = [];
+  List<String> _recentSearches = [];
   bool _isLoading = false;
   bool _isSearching = false;
   String? _selectedCategory;
@@ -58,12 +65,16 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
       final futures = await Future.wait([
         nutritionService.getPopularTurkishFoods(),
         if (userId != null) nutritionService.getRecentFoods(userId),
+        RecentSearchesService.getRecentSearches(),
       ]);
 
       setState(() {
         _popularFoods = futures[0];
-        if (userId != null && futures.length > 1) {
+        if (userId != null && futures.length > 2) {
           _recentFoods = futures[1];
+          _recentSearches = futures[2];
+        } else {
+          _recentSearches = futures[1];
         }
         _isLoading = false;
       });
@@ -92,6 +103,9 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
         _searchResults = results;
         _isSearching = false;
       });
+
+      // Add to recent searches
+      await RecentSearchesService.addSearch(query);
     } catch (e) {
       setState(() => _isSearching = false);
       print('Search error: $e');
@@ -223,7 +237,10 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
         // Content
         Expanded(
           child: _isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? const SkeletonLoader(
+                  type: SkeletonType.foodList,
+                  itemCount: 5,
+                )
               : _buildContent(),
         ),
       ],
@@ -270,7 +287,10 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
 
   Widget _buildContent() {
     if (_isSearching) {
-      return const Center(child: CircularProgressIndicator());
+      return const SkeletonLoader(
+        type: SkeletonType.foodList,
+        itemCount: 5,
+      );
     }
 
     if (_searchController.text.isNotEmpty || _selectedCategory != null) {
@@ -282,23 +302,13 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
 
   Widget _buildSearchResults() {
     if (_searchResults.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.search_off, size: 64, color: AppColors.textSecondary.withOpacity(0.5)),
-            const SizedBox(height: 16),
-            const Text(
-              'Yemek bulunamadı',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Farklı bir arama deneyin',
-              style: TextStyle(color: AppColors.textSecondary),
-            ),
-          ],
-        ),
+      return EmptyState(
+        type: EmptyStateType.noSearchResults,
+        actionText: 'Temizle',
+        onAction: () {
+          _searchController.clear();
+          _search('');
+        },
       );
     }
 
@@ -317,9 +327,67 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 8),
+
+          // Recent searches
+          if (_recentSearches.isNotEmpty) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Son Aramalar',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await RecentSearchesService.clearAll();
+                    setState(() => _recentSearches = []);
+                  },
+                  child: const Text('Temizle'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: _recentSearches.map((search) {
+                return ActionChip(
+                  label: Text(search),
+                  avatar: const Icon(Icons.history, size: 18),
+                  onPressed: () {
+                    _searchController.text = search;
+                    _search(search);
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 24),
+          ],
+
+          // Quick Add Section
+          const Text(
+            'Hızlı Ekle',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          QuickAddSection(
+            onFoodSelected: (food) {
+              Navigator.push(
+                context,
+                PageTransitions.slideFromRight(
+                  AddFoodScreen(
+                    foodItem: food,
+                    mealType: widget.mealType,
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+
           // Recent foods
           if (_recentFoods.isNotEmpty) ...[
-            const SizedBox(height: 8),
             const Text(
               'Son Eklenenler',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -342,26 +410,38 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
   }
 
   Widget _buildFoodItem(FoodItem food) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: AppColors.divider),
-      ),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddFoodScreen(
-                foodItem: food,
-                mealType: widget.mealType,
-              ),
+    return SwipeableItem(
+      onFavorite: () async {
+        await FavoriteFoodsService.toggleFavorite(food.id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Favorilere ${await FavoriteFoodsService.isFavorite(food.id) ? "eklendi" : "çıkarıldı"}'),
+              duration: const Duration(seconds: 1),
             ),
           );
-        },
-        borderRadius: BorderRadius.circular(12),
+        }
+      },
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: const BorderSide(color: AppColors.divider),
+        ),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransitions.slideFromRight(
+                AddFoodScreen(
+                  foodItem: food,
+                  mealType: widget.mealType,
+                ),
+              ),
+            );
+          },
+          borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -460,6 +540,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen>
           ),
         ),
       ),
+        ),
     );
   }
 

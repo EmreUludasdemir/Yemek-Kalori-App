@@ -11,6 +11,12 @@ import '../../widgets/food/calorie_progress_ring.dart';
 import '../../widgets/food/macro_bar.dart';
 import '../../widgets/food/meal_section.dart';
 import '../food_log/food_search_screen.dart';
+import '../../widgets/common/multi_action_fab.dart';
+import '../../widgets/loading/skeleton_loader.dart';
+import '../../widgets/modals/custom_bottom_sheet.dart';
+import '../camera/camera_picker_screen.dart';
+import '../food_log/barcode_scanner_screen.dart';
+import '../../widgets/animations/page_transitions.dart';
 
 // Provider for daily nutrition data
 final dailyNutritionProvider = FutureProvider.autoDispose<DailyNutrition>((ref) async {
@@ -147,12 +153,50 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: userProfileAsync.when(
           data: (profile) => dailyNutritionAsync.when(
             data: (nutrition) => _buildContent(profile, nutrition),
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const SkeletonLoader(
+              type: SkeletonType.statsCard,
+              itemCount: 1,
+            ),
             error: (error, _) => _buildError(error.toString()),
           ),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const SkeletonLoader(
+            type: SkeletonType.statsCard,
+            itemCount: 1,
+          ),
           error: (error, _) => _buildError(error.toString()),
         ),
+      ),
+      floatingActionButton: MultiActionFAB(
+        onAddFood: () {
+          CustomBottomSheet.showQuickAdd(
+            context: context,
+            onMealTypeSelected: (mealType) {
+              Navigator.push(
+                context,
+                PageTransitions.slideFromRight(
+                  const FoodSearchScreen(),
+                ),
+              );
+            },
+          );
+        },
+        onAddWater: _addWaterGlass,
+        onOpenCamera: () {
+          Navigator.push(
+            context,
+            PageTransitions.slideFromBottom(
+              const CameraPickerScreen(),
+            ),
+          );
+        },
+        onScanBarcode: () {
+          Navigator.push(
+            context,
+            PageTransitions.slideFromBottom(
+              const BarcodeScannerScreen(),
+            ),
+          );
+        },
       ),
     );
   }

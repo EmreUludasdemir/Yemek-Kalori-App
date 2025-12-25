@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../config/supabase_config.dart';
 import '../../../data/models/food_log_model.dart';
+import '../../widgets/common/empty_state.dart';
+import '../../widgets/loading/skeleton_loader.dart';
 
 // Provider for weekly nutrition data
 final weeklyNutritionProvider = FutureProvider.autoDispose<WeeklyNutritionData>((ref) async {
@@ -87,13 +89,27 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       ),
       body: _selectedTab == 0
           ? weeklyDataAsync.when(
-              data: (data) => _buildWeeklyContent(data),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              data: (data) => data.isEmpty
+                  ? const EmptyState(
+                      type: EmptyStateType.noStats,
+                    )
+                  : _buildWeeklyContent(data),
+              loading: () => const SkeletonLoader(
+                type: SkeletonType.chart,
+                itemCount: 2,
+              ),
               error: (error, _) => _buildError(error.toString()),
             )
           : monthlyDataAsync.when(
-              data: (data) => _buildMonthlyContent(data),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              data: (data) => data.isEmpty
+                  ? const EmptyState(
+                      type: EmptyStateType.noStats,
+                    )
+                  : _buildMonthlyContent(data),
+              loading: () => const SkeletonLoader(
+                type: SkeletonType.chart,
+                itemCount: 2,
+              ),
               error: (error, _) => _buildError(error.toString()),
             ),
     );
@@ -1018,6 +1034,8 @@ class WeeklyNutritionData {
     final nonZero = dailyCalories.where((cal) => cal > 0);
     return nonZero.isNotEmpty ? nonZero.reduce((a, b) => a < b ? a : b) : 0;
   }
+
+  bool get isEmpty => totalCalories == 0 && totalProtein == 0 && totalCarbs == 0 && totalFat == 0;
 }
 
 // Monthly nutrition data model
@@ -1095,4 +1113,6 @@ class MonthlyNutritionData {
     final nonZero = dailyCalories.where((cal) => cal > 0);
     return nonZero.isNotEmpty ? nonZero.reduce((a, b) => a < b ? a : b) : 0;
   }
+
+  bool get isEmpty => totalCalories == 0 && totalProtein == 0 && totalCarbs == 0 && totalFat == 0;
 }
