@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/food_log_model.dart';
+import '../../../config/supabase_config.dart';
+import '../common/swipeable_item.dart';
 
 class MealSection extends StatelessWidget {
   final String mealType;
@@ -157,69 +159,82 @@ class MealSection extends StatelessWidget {
   }
 
   Widget _buildFoodItem(FoodLog log) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Row(
-        children: [
-          // Food image or icon
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColors.divider.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(8),
-              image: log.imageUrl != null
-                  ? DecorationImage(
-                      image: NetworkImage(log.imageUrl!),
-                      fit: BoxFit.cover,
+    return SwipeableItem(
+      onDelete: () async {
+        try {
+          await SupabaseConfig.client
+              .from('food_logs')
+              .delete()
+              .eq('id', log.id);
+        } catch (e) {
+          print('Error deleting food log: $e');
+        }
+      },
+      deleteConfirmMessage: '${log.foodName} silinsin mi?',
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Row(
+          children: [
+            // Food image or icon
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: AppColors.divider.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+                image: log.imageUrl != null
+                    ? DecorationImage(
+                        image: NetworkImage(log.imageUrl!),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
+              ),
+              child: log.imageUrl == null
+                  ? Icon(
+                      Icons.restaurant,
+                      color: AppColors.textSecondary,
+                      size: 20,
                     )
                   : null,
             ),
-            child: log.imageUrl == null
-                ? Icon(
-                    Icons.restaurant,
-                    color: AppColors.textSecondary,
-                    size: 20,
-                  )
-                : null,
-          ),
-          const SizedBox(width: 12),
+            const SizedBox(width: 12),
 
-          // Food info
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  log.foodName,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                if (log.servingCount != 1.0)
+            // Food info
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    '${log.servingCount}x porsiyon',
+                    log.foodName,
                     style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.textSecondary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-              ],
+                  if (log.servingCount != 1.0)
+                    Text(
+                      '${log.servingCount}x porsiyon',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
 
-          // Calories
-          Text(
-            '${log.calories.toStringAsFixed(0)} kcal',
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+            // Calories
+            Text(
+              '${log.calories.toStringAsFixed(0)} kcal',
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
