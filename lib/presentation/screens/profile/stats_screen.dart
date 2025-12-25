@@ -31,6 +31,32 @@ final weeklyNutritionProvider = FutureProvider.autoDispose<WeeklyNutritionData>(
   }
 });
 
+// Provider for monthly nutrition data
+final monthlyNutritionProvider = FutureProvider.autoDispose<MonthlyNutritionData>((ref) async {
+  final userId = SupabaseConfig.currentUser?.id;
+  if (userId == null) return MonthlyNutritionData.empty();
+
+  try {
+    final now = DateTime.now();
+    final startOfMonth = DateTime(now.year, now.month, 1);
+    final endOfMonth = DateTime(now.year, now.month + 1, 0);
+
+    final response = await SupabaseConfig.client
+        .from('food_logs')
+        .select('logged_at, calories, protein, carbohydrates, fat')
+        .eq('user_id', userId)
+        .gte('logged_at', startOfMonth.toIso8601String())
+        .lte('logged_at', endOfMonth.toIso8601String())
+        .order('logged_at', ascending: true);
+
+    final logs = (response as List).map((e) => FoodLog.fromJson(e)).toList();
+    return MonthlyNutritionData.fromLogs(logs, startOfMonth);
+  } catch (e) {
+    print('Error fetching monthly nutrition: $e');
+    return MonthlyNutritionData.empty();
+  }
+});
+
 class StatsScreen extends ConsumerStatefulWidget {
   const StatsScreen({super.key});
 
@@ -44,6 +70,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     final weeklyDataAsync = ref.watch(weeklyNutritionProvider);
+    final monthlyDataAsync = ref.watch(monthlyNutritionProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,19 +78,28 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(weeklyNutritionProvider),
+            onPressed: () {
+              ref.invalidate(weeklyNutritionProvider);
+              ref.invalidate(monthlyNutritionProvider);
+            },
           ),
         ],
       ),
-      body: weeklyDataAsync.when(
-        data: (weeklyData) => _buildContent(weeklyData),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => _buildError(error.toString()),
-      ),
+      body: _selectedTab == 0
+          ? weeklyDataAsync.when(
+              data: (data) => _buildWeeklyContent(data),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => _buildError(error.toString()),
+            )
+          : monthlyDataAsync.when(
+              data: (data) => _buildMonthlyContent(data),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => _buildError(error.toString()),
+            ),
     );
   }
 
-  Widget _buildContent(WeeklyNutritionData weeklyData) {
+  Widget _buildWeeklyContent(WeeklyNutritionData weeklyData) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -286,6 +322,229 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     );
   }
 
+  Widget _buildMonthlyContent(MonthlyNutritionData monthlyData) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Tab selector
+          Row(
+            children: [
+              Expanded(
+                child: _buildTabButton('Hafta', 0),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildTabButton('Ay', 1),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Monthly calorie chart
+          const Text(
+            'Aylık Kalori Grafiği',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: AppColors.divider),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                height: 200,
+                child: LineChart(
+                  _buildMonthlyLineChartData(monthlyData),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 24),
+
+          // Macro distribution
+          const Text(
+            'Makro Besin Dağılımı',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: AppColors.divider),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: PieChart(
+                      _buildMonthlyPieChartData(monthlyData),
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildMacroLegendItem(
+                          'Protein',
+                          monthlyData.totalProtein,
+                          AppColors.protein,
+                        ),
+                        const SizedBox(height: 8),
+                        _buildMacroLegendItem(
+                          'Karbonhidrat',
+                          monthlyData.totalCarbs,
+                          AppColors.carbs,
+                        ),
+                        const SizedBox(height: 8),
+                        _buildMacroLegendItem(
+                          'Yağ',
+                          monthlyData.totalFat,
+                          AppColors.fat,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 24),
+
+          // Monthly summary
+          const Text(
+            'Aylık Özet',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          Row(
+            children: [
+              Expanded(
+                child: _buildSummaryCard(
+                  'Günlük Ort.',
+                  '${monthlyData.averageDailyCalories.toStringAsFixed(0)} kcal',
+                  Icons.local_fire_department,
+                  AppColors.primary,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildSummaryCard(
+                  'Toplam',
+                  '${(monthlyData.totalCalories / 1000).toStringAsFixed(1)}k kcal',
+                  Icons.dining,
+                  AppColors.accent,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          Row(
+            children: [
+              Expanded(
+                child: _buildSummaryCard(
+                  'En Yüksek',
+                  '${monthlyData.maxDailyCalories.toStringAsFixed(0)} kcal',
+                  Icons.trending_up,
+                  AppColors.success,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildSummaryCard(
+                  'Aktif Gün',
+                  '${monthlyData.activeDays}/${monthlyData.daysInMonth}',
+                  Icons.calendar_today,
+                  AppColors.warning,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 24),
+
+          // Tips card
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.accent.withOpacity(0.1),
+                  AppColors.warning.withOpacity(0.05),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.accent.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.insights,
+                    color: AppColors.accent,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Aylık Analiz',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Bu ay ${monthlyData.activeDays} gün kayıt yaptınız. Harika gidiyorsunuz!',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildTabButton(String label, int index) {
     final isSelected = _selectedTab == index;
     return GestureDetector(
@@ -409,6 +668,154 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
   }
 
   PieChartData _buildPieChartData(WeeklyNutritionData data) {
+    final total = data.totalProtein + data.totalCarbs + data.totalFat;
+    if (total == 0) {
+      return PieChartData(sections: []);
+    }
+
+    return PieChartData(
+      sectionsSpace: 2,
+      centerSpaceRadius: 30,
+      sections: [
+        PieChartSectionData(
+          color: AppColors.protein,
+          value: data.totalProtein,
+          title: '${((data.totalProtein / total) * 100).toStringAsFixed(0)}%',
+          radius: 40,
+          titleStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        PieChartSectionData(
+          color: AppColors.carbs,
+          value: data.totalCarbs,
+          title: '${((data.totalCarbs / total) * 100).toStringAsFixed(0)}%',
+          radius: 40,
+          titleStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        PieChartSectionData(
+          color: AppColors.fat,
+          value: data.totalFat,
+          title: '${((data.totalFat / total) * 100).toStringAsFixed(0)}%',
+          radius: 40,
+          titleStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+  LineChartData _buildMonthlyLineChartData(MonthlyNutritionData data) {
+    final spots = <FlSpot>[];
+    for (var i = 0; i < data.dailyCalories.length; i++) {
+      if (data.dailyCalories[i] > 0) {
+        spots.add(FlSpot(i.toDouble(), data.dailyCalories[i]));
+      }
+    }
+
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: false,
+        horizontalInterval: 500,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: AppColors.divider,
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 42,
+            getTitlesWidget: (value, meta) {
+              return Text(
+                '${value.toInt()}',
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: AppColors.textSecondary,
+                ),
+              );
+            },
+          ),
+        ),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            interval: 5,
+            getTitlesWidget: (value, meta) {
+              if (value.toInt() % 5 == 0 && value.toInt() > 0) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    '${value.toInt()}',
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                );
+              }
+              return const Text('');
+            },
+          ),
+        ),
+        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      ),
+      borderData: FlBorderData(show: false),
+      minX: 1,
+      maxX: data.daysInMonth.toDouble(),
+      minY: 0,
+      maxY: (data.maxDailyCalories * 1.2).ceilToDouble(),
+      lineBarsData: [
+        LineChartBarData(
+          spots: spots,
+          isCurved: true,
+          gradient: const LinearGradient(
+            colors: [AppColors.accent, AppColors.warning],
+          ),
+          barWidth: 3,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: true,
+            getDotPainter: (spot, percent, barData, index) {
+              return FlDotCirclePainter(
+                radius: 3,
+                color: AppColors.accent,
+                strokeWidth: 2,
+                strokeColor: Colors.white,
+              );
+            },
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            gradient: LinearGradient(
+              colors: [
+                AppColors.accent.withOpacity(0.3),
+                AppColors.warning.withOpacity(0.1),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  PieChartData _buildMonthlyPieChartData(MonthlyNutritionData data) {
     final total = data.totalProtein + data.totalCarbs + data.totalFat;
     if (total == 0) {
       return PieChartData(sections: []);
@@ -605,6 +1012,83 @@ class WeeklyNutritionData {
 
   double get maxDailyCalories {
     return dailyCalories.reduce((a, b) => a > b ? a : b);
+  }
+
+  double get minDailyCalories {
+    final nonZero = dailyCalories.where((cal) => cal > 0);
+    return nonZero.isNotEmpty ? nonZero.reduce((a, b) => a < b ? a : b) : 0;
+  }
+}
+
+// Monthly nutrition data model
+class MonthlyNutritionData {
+  final List<double> dailyCalories; // Days in month (1-31)
+  final double totalProtein;
+  final double totalCarbs;
+  final double totalFat;
+  final int daysInMonth;
+
+  MonthlyNutritionData({
+    required this.dailyCalories,
+    required this.totalProtein,
+    required this.totalCarbs,
+    required this.totalFat,
+    required this.daysInMonth,
+  });
+
+  factory MonthlyNutritionData.empty() {
+    final now = DateTime.now();
+    final days = DateTime(now.year, now.month + 1, 0).day;
+    return MonthlyNutritionData(
+      dailyCalories: List.filled(days + 1, 0), // Index 0 unused, 1-31 used
+      totalProtein: 0,
+      totalCarbs: 0,
+      totalFat: 0,
+      daysInMonth: days,
+    );
+  }
+
+  factory MonthlyNutritionData.fromLogs(List<FoodLog> logs, DateTime startOfMonth) {
+    final daysInMonth = DateTime(startOfMonth.year, startOfMonth.month + 1, 0).day;
+    final dailyCalories = List<double>.filled(daysInMonth + 1, 0); // Index 0 unused
+    double totalProtein = 0;
+    double totalCarbs = 0;
+    double totalFat = 0;
+
+    for (final log in logs) {
+      final logDate = log.loggedAt;
+      final dayOfMonth = logDate.day;
+
+      if (dayOfMonth >= 1 && dayOfMonth <= daysInMonth) {
+        dailyCalories[dayOfMonth] += log.calories;
+      }
+
+      totalProtein += log.protein;
+      totalCarbs += log.carbohydrates;
+      totalFat += log.fat;
+    }
+
+    return MonthlyNutritionData(
+      dailyCalories: dailyCalories,
+      totalProtein: totalProtein,
+      totalCarbs: totalCarbs,
+      totalFat: totalFat,
+      daysInMonth: daysInMonth,
+    );
+  }
+
+  double get totalCalories => dailyCalories.fold(0, (sum, cal) => sum + cal);
+
+  int get activeDays => dailyCalories.where((cal) => cal > 0).length;
+
+  double get averageDailyCalories {
+    final nonZeroDays = dailyCalories.where((cal) => cal > 0).length;
+    return nonZeroDays > 0 ? totalCalories / nonZeroDays : 0;
+  }
+
+  double get maxDailyCalories {
+    final nonZero = dailyCalories.where((cal) => cal > 0);
+    return nonZero.isNotEmpty ? nonZero.reduce((a, b) => a > b ? a : b) : 0;
   }
 
   double get minDailyCalories {
