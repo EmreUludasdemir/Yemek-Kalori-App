@@ -4,6 +4,7 @@ import '../data/models/post_model.dart';
 import '../data/models/follow_model.dart';
 import '../data/models/notification_model.dart';
 import '../data/models/user_model.dart';
+import '../data/models/paginated_response.dart';
 
 /// Service for all social features (posts, likes, comments, follows, notifications)
 class SocialService {
@@ -750,6 +751,216 @@ class SocialService {
     } catch (e) {
       print('Error uploading avatar: $e');
       return null;
+    }
+  }
+
+  // ==========================================
+  // PAGINATION METHODS (New - for infinite scroll)
+  // ==========================================
+
+  /// Get feed posts with pagination
+  static Future<PaginatedResponse<Post>> getFeedPostsPaginated({
+    required String feedType,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count first
+      final countResponse = await _supabase
+          .from('posts')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('is_public', true);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch posts
+      final posts = await getFeedPosts(
+        feedType: feedType,
+        limit: params.limit,
+        offset: params.offset,
+      );
+
+      final hasMore = (params.offset + posts.length) < totalCount;
+
+      return PaginatedResponse<Post>(
+        items: posts,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated feed: $e');
+      return PaginatedResponse.empty();
+    }
+  }
+
+  /// Get user posts with pagination
+  static Future<PaginatedResponse<Post>> getUserPostsPaginated({
+    required String userId,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count
+      final countResponse = await _supabase
+          .from('posts')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('user_id', userId)
+          .eq('is_public', true);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch posts
+      final posts = await getUserPosts(
+        userId: userId,
+        limit: params.limit,
+        offset: params.offset,
+      );
+
+      final hasMore = (params.offset + posts.length) < totalCount;
+
+      return PaginatedResponse<Post>(
+        items: posts,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated user posts: $e');
+      return PaginatedResponse.empty();
+    }
+  }
+
+  /// Get comments with pagination
+  static Future<PaginatedResponse<Comment>> getCommentsPaginated({
+    required String postId,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count
+      final countResponse = await _supabase
+          .from('comments')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('post_id', postId);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch comments with pagination
+      final response = await _supabase.from('comments').select('''
+          *,
+          user:profiles!comments_user_id_fkey(
+            id, username, full_name, avatar_url, streak_days, created_at
+          )
+        ''')
+          .eq('post_id', postId)
+          .order('created_at', ascending: true)
+          .range(params.offset, params.offset + params.limit - 1);
+
+      final List<dynamic> data = response as List<dynamic>;
+      final comments = data.map((item) => Comment.fromJson(item)).toList();
+
+      final hasMore = (params.offset + comments.length) < totalCount;
+
+      return PaginatedResponse<Comment>(
+        items: comments,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated comments: $e');
+      return PaginatedResponse.empty();
+    }
+  }
+
+  /// Get followers with pagination
+  static Future<PaginatedResponse<UserProfile>> getFollowersPaginated({
+    required String userId,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count
+      final countResponse = await _supabase
+          .from('follows')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('following_id', userId);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch followers with pagination
+      final response = await _supabase.from('follows').select('''
+          follower:profiles!follows_follower_id_fkey(
+            id, username, full_name, avatar_url, bio, is_public,
+            followers_count, following_count, posts_count, streak_days, created_at
+          )
+        ''')
+          .eq('following_id', userId)
+          .order('created_at', ascending: false)
+          .range(params.offset, params.offset + params.limit - 1);
+
+      final List<dynamic> data = response as List<dynamic>;
+      final followers = data
+          .map((item) => UserProfile.fromJson(item['follower']))
+          .toList();
+
+      final hasMore = (params.offset + followers.length) < totalCount;
+
+      return PaginatedResponse<UserProfile>(
+        items: followers,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated followers: $e');
+      return PaginatedResponse.empty();
+    }
+  }
+
+  /// Get following with pagination
+  static Future<PaginatedResponse<UserProfile>> getFollowingPaginated({
+    required String userId,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count
+      final countResponse = await _supabase
+          .from('follows')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('follower_id', userId);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch following with pagination
+      final response = await _supabase.from('follows').select('''
+          following:profiles!follows_following_id_fkey(
+            id, username, full_name, avatar_url, bio, is_public,
+            followers_count, following_count, posts_count, streak_days, created_at
+          )
+        ''')
+          .eq('follower_id', userId)
+          .order('created_at', ascending: false)
+          .range(params.offset, params.offset + params.limit - 1);
+
+      final List<dynamic> data = response as List<dynamic>;
+      final following = data
+          .map((item) => UserProfile.fromJson(item['following']))
+          .toList();
+
+      final hasMore = (params.offset + following.length) < totalCount;
+
+      return PaginatedResponse<UserProfile>(
+        items: following,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated following: $e');
+      return PaginatedResponse.empty();
     }
   }
 }

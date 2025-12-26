@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../data/models/recipe_model.dart';
+import '../data/models/paginated_response.dart';
 import '../config/supabase_config.dart';
 
 /// Service for managing recipes
@@ -523,5 +524,98 @@ class RecipeService {
         createdAt: DateTime.now(),
       ),
     ];
+  }
+
+  // ==================== Pagination Methods ====================
+
+  /// Fetch recipes with pagination
+  static Future<PaginatedResponse<Recipe>> fetchRecipesPaginated({
+    String? category,
+    String? difficulty,
+    bool? isPremium,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Build base query for count
+      var countQuery = _supabase
+          .from('recipes')
+          .select('id', const FetchOptions(count: CountOption.exact));
+
+      if (category != null) {
+        countQuery = countQuery.eq('category', category);
+      }
+      if (difficulty != null) {
+        countQuery = countQuery.eq('difficulty', difficulty);
+      }
+      if (isPremium != null) {
+        countQuery = countQuery.eq('is_premium', isPremium);
+      }
+
+      final countResponse = await countQuery;
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch recipes
+      final recipes = await fetchRecipes(
+        category: category,
+        difficulty: difficulty,
+        isPremium: isPremium,
+        limit: params.limit,
+        offset: params.offset,
+      );
+
+      final hasMore = (params.offset + recipes.length) < totalCount;
+
+      return PaginatedResponse<Recipe>(
+        items: recipes,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated recipes: $e');
+      return PaginatedResponse.empty();
+    }
+  }
+
+  /// Get saved recipes with pagination
+  static Future<PaginatedResponse<Recipe>> getSavedRecipesPaginated({
+    required String userId,
+    required PaginationParams params,
+  }) async {
+    try {
+      // Get total count
+      final countResponse = await _supabase
+          .from('saved_recipes')
+          .select('id', const FetchOptions(count: CountOption.exact))
+          .eq('user_id', userId);
+
+      final totalCount = countResponse.count ?? 0;
+
+      // Fetch saved recipes with pagination
+      final response = await _supabase
+          .from('saved_recipes')
+          .select('recipe_id, recipes(*)')
+          .eq('user_id', userId)
+          .order('saved_at', ascending: false)
+          .range(params.offset, params.offset + params.limit - 1);
+
+      final recipes = (response as List)
+          .map((item) => Recipe.fromJson(item['recipes']))
+          .toList();
+
+      final hasMore = (params.offset + recipes.length) < totalCount;
+
+      return PaginatedResponse<Recipe>(
+        items: recipes,
+        currentPage: params.page,
+        pageSize: params.pageSize,
+        totalCount: totalCount,
+        hasMore: hasMore,
+      );
+    } catch (e) {
+      print('Error fetching paginated saved recipes: $e');
+      return PaginatedResponse.empty();
+    }
   }
 }
