@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- EXPORT OPTIONS FOR APP STORE DISTRIBUTION -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<!-- Method of distribution -->
+	<!-- Options: app-store, ad-hoc, enterprise, development -->
+	<key>method</key>
+	<string>app-store</string>
+
+	<!-- Upload symbols for crash reporting -->
+	<key>uploadSymbols</key>
+	<true/>
+
+	<!-- Upload bitcode (deprecated in Xcode 14+, but kept for compatibility) -->
+	<key>uploadBitcode</key>
+	<false/>
+
+	<!-- Compile bitcode (deprecated in Xcode 14+) -->
+	<key>compileBitcode</key>
+	<false/>
+
+	<!-- Team ID -->
+	<!-- Replace with your Apple Developer Team ID -->
+	<!-- Find at: https://developer.apple.com/account -->
+	<key>teamID</key>
+	<string>TEAM_ID_HERE</string>
+
+	<!-- Provisioning Profile -->
+	<!-- Options: automatic (recommended) or manual -->
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.turkkalori.app</key>
+		<string>match AppStore com.turkkalori.app</string>
+	</dict>
+
+	<!-- Signing Certificate -->
+	<!-- Options: iOS Distribution, Apple Distribution -->
+	<key>signingCertificate</key>
+	<string>Apple Distribution</string>
+
+	<!-- Signing Style -->
+	<!-- Options: automatic (recommended), manual -->
+	<key>signingStyle</key>
+	<string>automatic</string>
+
+	<!-- App Store Connect API Key (for automation) -->
+	<!-- Optional: for CI/CD pipelines -->
+	<!--
+	<key>apiKey</key>
+	<string>API_KEY_ID</string>
+	<key>apiIssuer</key>
+	<string>ISSUER_ID</string>
+	-->
+
+	<!-- Destination -->
+	<key>destination</key>
+	<string>upload</string>
+
+	<!-- App Thinning -->
+	<!-- Create variant for each device -->
+	<key>thinning</key>
+	<string>&lt;none&gt;</string>
+
+	<!-- Strip Swift symbols -->
+	<key>stripSwiftSymbols</key>
+	<true/>
+
+	<!-- Manage App Version and Build Number -->
+	<key>manageAppVersionAndBuildNumber</key>
+	<false/>
+
+	<!-- Generate app size report -->
+	<key>generateAppStoreInformation</key>
+	<true/>
+
+</dict>
+</plist>

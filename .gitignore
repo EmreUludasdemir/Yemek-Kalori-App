@@ -59,3 +59,30 @@ app.*.map.json
 # Generated files
 *.g.dart
 *.freezed.dart
+
+# ════════════════════════════════════════════════════════════════
+# TURKKALORI - SECURITY & SIGNING KEYS
+# ════════════════════════════════════════════════════════════════
+
+# Android signing keys
+android/key.properties
+android/*.jks
+android/*.keystore
+**/upload-keystore.jks
+
+# iOS certificates & provisioning profiles
+ios/Runner/GoogleService-Info.plist
+ios/**/*.mobileprovision
+ios/**/*.p12
+ios/**/*.cer
+
+# Firebase config files (contains API keys)
+# Note: Remove these from gitignore if you use Firebase Remote Config
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# API keys and secrets
+lib/config/api_keys.dart
+lib/config/secrets.dart
+
+# ════════════════════════════════════════════════════════════════

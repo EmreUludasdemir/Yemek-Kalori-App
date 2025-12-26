@@ -1,0 +1,92 @@
+# ════════════════════════════════════════════════════════════════
+# ANDROID SIGNING KEY PROPERTIES
+# ════════════════════════════════════════════════════════════════
+#
+# IMPORTANT: DO NOT commit this file to version control!
+# Add to .gitignore: android/key.properties
+#
+# To generate a signing key:
+# keytool -genkey -v -keystore turkkalori-release.jks \
+#   -keyalg RSA -keysize 2048 -validity 10000 \
+#   -alias turkkalori
+#
+# ════════════════════════════════════════════════════════════════
+
+# Store password (used when creating the keystore)
+storePassword=YOUR_STORE_PASSWORD_HERE
+
+# Key password (can be same as store password)
+keyPassword=YOUR_KEY_PASSWORD_HERE
+
+# Key alias (name you gave when creating)
+keyAlias=turkkalori
+
+# Path to keystore file (relative to android/ directory)
+storeFile=turkkalori-release.jks
+
+# ════════════════════════════════════════════════════════════════
+# SETUP INSTRUCTIONS
+# ════════════════════════════════════════════════════════════════
+#
+# 1. Generate keystore (run from android/ directory):
+#    keytool -genkey -v -keystore turkkalori-release.jks \
+#      -keyalg RSA -keysize 2048 -validity 10000 \
+#      -alias turkkalori
+#
+#    You will be asked:
+#    - Enter keystore password: (create a strong password)
+#    - Re-enter password: (confirm)
+#    - First and last name: (Your name or company)
+#    - Organizational unit: (e.g., Development)
+#    - Organization: (e.g., TürkKalori)
+#    - City/Locality: (e.g., Istanbul)
+#    - State/Province: (e.g., Istanbul)
+#    - Country code: (e.g., TR)
+#    - Enter key password: (can be same as keystore password)
+#
+# 2. Copy this template to key.properties:
+#    cp android/key.properties.template android/key.properties
+#
+# 3. Edit key.properties and fill in your passwords
+#
+# 4. Keep turkkalori-release.jks SAFE and BACKED UP!
+#    - Store in password manager
+#    - Keep offline backup
+#    - NEVER lose this file - cannot be recovered!
+#
+# 5. Add to .gitignore:
+#    echo "android/key.properties" >> .gitignore
+#    echo "android/*.jks" >> .gitignore
+#
+# ════════════════════════════════════════════════════════════════
+# SECURITY BEST PRACTICES
+# ════════════════════════════════════════════════════════════════
+#
+# ✅ DO:
+# - Use strong, unique passwords (16+ characters)
+# - Store keystore in secure location
+# - Back up keystore to encrypted storage
+# - Use different passwords for development vs production
+# - Restrict access to keystore file
+#
+# ❌ DON'T:
+# - Commit key.properties or .jks files to git
+# - Share passwords in plain text
+# - Use weak or default passwords
+# - Store passwords in code
+# - Email keystore files
+#
+# ════════════════════════════════════════════════════════════════
+# FOR CI/CD (GitHub Actions, etc.)
+# ════════════════════════════════════════════════════════════════
+#
+# Store as encrypted secrets/environment variables:
+# - ANDROID_KEYSTORE_BASE64 (base64 encoded .jks file)
+# - ANDROID_STORE_PASSWORD
+# - ANDROID_KEY_PASSWORD
+# - ANDROID_KEY_ALIAS
+#
+# Decode in CI/CD:
+# echo $ANDROID_KEYSTORE_BASE64 | base64 -d > android/turkkalori-release.jks
+#
+# ════════════════════════════════════════════════════════════════
