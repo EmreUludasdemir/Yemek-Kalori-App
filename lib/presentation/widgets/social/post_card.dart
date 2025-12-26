@@ -3,7 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../core/constants/app_colors.dart';
+import '../../../config/supabase_config.dart';
 import '../../../data/models/post_model.dart';
+import '../../../services/social_service.dart';
+import 'comments_bottom_sheet.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
@@ -28,7 +31,8 @@ class _PostCardState extends State<PostCard> {
     _likesCount = widget.post.likesCount;
   }
 
-  void _toggleLike() {
+  Future<void> _toggleLike() async {
+    // Optimistic update
     setState(() {
       if (_isLiked) {
         _isLiked = false;
@@ -39,8 +43,27 @@ class _PostCardState extends State<PostCard> {
       }
     });
 
-    // TODO: Call API to toggle like
-    // ref.read(socialServiceProvider).toggleLike(widget.post.id);
+    // Call API
+    final userId = SupabaseConfig.currentUser?.id;
+    if (userId == null) return;
+
+    final success = await SocialService.togglePostLike(
+      userId: userId,
+      postId: widget.post.id,
+    );
+
+    // Revert on failure
+    if (!success) {
+      setState(() {
+        if (_isLiked) {
+          _isLiked = false;
+          _likesCount--;
+        } else {
+          _isLiked = true;
+          _likesCount++;
+        }
+      });
+    }
   }
 
   @override
@@ -234,7 +257,7 @@ class _PostCardState extends State<PostCard> {
             icon: const Icon(Icons.chat_bubble_outline),
             color: AppColors.textSecondary,
             onPressed: () {
-              // Navigate to comments
+              CommentsBottomSheet.show(context, widget.post.id);
             },
           ),
           Text(
@@ -293,7 +316,7 @@ class _PostCardState extends State<PostCard> {
                 Navigator.pop(context);
               },
             ),
-            if (widget.post.userId == 'current_user_id') ...[
+            if (widget.post.userId == SupabaseConfig.currentUser?.id) ...[
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.edit, color: AppColors.primary),
@@ -305,8 +328,39 @@ class _PostCardState extends State<PostCard> {
               ListTile(
                 leading: const Icon(Icons.delete, color: AppColors.error),
                 title: const Text('Sil'),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(context);
+
+                  // Show confirmation dialog
+                  final confirm = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Gönderiyi Sil'),
+                      content: const Text('Bu gönderiyi silmek istediğinizden emin misiniz?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('İptal'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          child: const Text('Sil', style: TextStyle(color: AppColors.error)),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (confirm == true) {
+                    final success = await SocialService.deletePost(widget.post.id);
+                    if (success && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Gönderi silindi'),
+                          backgroundColor: AppColors.success,
+                        ),
+                      );
+                    }
+                  }
                 },
               ),
             ] else

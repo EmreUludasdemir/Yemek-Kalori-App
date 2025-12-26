@@ -1,49 +1,158 @@
-# 🍽️ TürkKalori - AI Destekli Sosyal Kalori Takip Uygulaması
+# 🍽️ TürkKalori - AI Destekli Kalori Takip Uygulaması
 
-Türkiye pazarı için geliştirilmiş, yapay zeka ile yemek fotoğraflarından kalori hesaplayan, sosyal medya özellikleri içeren cross-platform mobil uygulama.
+> **Türk mutfağına özel, profesyonel tasarımlı, full-featured kalori takip uygulaması**
+
+TürkKalori, Türkiye pazarı için geliştirilmiş, modern UI/UX tasarımı, akıllı öneriler ve gelişmiş analitiklerle donatılmış bir sağlıklı yaşam asistanıdır.
+
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)](https://flutter.dev)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase)](https://supabase.com)
+[![License](https://img.shields.io/badge/license-Private-red)]()
+
+---
 
 ## 🎯 Proje Özeti
 
-TürkKalori, MyFitnessPal ve YAZIO gibi uluslararası uygulamaların Türk yemekleri konusundaki eksikliğini gidermek için geliştirilmiş bir kalori takip uygulamasıdır.
+MyFitnessPal ve YAZIO gibi uluslararası uygulamaların Türk yemekleri konusundaki eksikliğini gidermek için geliştirilmiş, **profesyonel seviyede** bir kalori takip uygulaması.
 
-### Temel Özellikler
+### ✨ Temel Özellikler
 
-- ✅ **AI ile Yemek Tanıma**: Fotoğraftan otomatik kalori hesaplama (TFLite + Calorie Mama API)
-- ✅ **Türk Yemekleri Veritabanı**: 150+ Türk yemeği (TürKomp verisi)
-- ✅ **Günlük Takip**: Kalori, protein, karbonhidrat, yağ takibi
-- ✅ **Barkod Tarama**: Paketli ürünler için barkod okuyucu
-- ✅ **İstatistikler**: Haftalık/aylık grafikler ve raporlar (fl_chart)
-- ✅ **Başarımlar**: 11 başarım, 4 kategori, puan sistemi
-- ✅ **Push Notifications**: Firebase FCM entegrasyonu
-- ✅ **Dark Mode**: Kalıcı tema tercihi
-- ✅ **Sosyal Feed**: Paylaşım görüntüleme sistemi
+#### 🍽️ Yemek Takibi
+- ✅ **Türk Yemekleri Veritabanı** - 150+ Türk yemeği (TürKomp verisi)
+- ✅ **Akıllı Arama** - Full-text search + kategori filtreleme
+- ✅ **Hızlı Ekle** - Son kullanılan, favoriler, sık kullanılan yemekler
+- ✅ **Öğün Bazlı** - Kahvaltı, öğle, akşam, ara öğün
+- ✅ **Porsiyon Kontrolü** - Hassas kalori hesaplama
+- ✅ **Swipe Gestures** - Kaydırarak sil/düzenle
+- 🔄 **AI Yemek Tanıma** - Kamera ile otomatik tanıma (backend bekleniyor)
+- 🔄 **Barkod Tarama** - Paketli ürünler (UI hazır)
+
+#### 📊 İstatistikler & Analitik
+- ✅ **Haftalık/Aylık Grafikler** - fl_chart ile görselleştirme
+- ✅ **Makro Besin Dağılımı** - Protein, karbonhidrat, yağ pie chart
+- ✅ **Günlük Hedef Takibi** - Progress ring & indicator bar
+- ✅ **Trend Analizi** - Min/max/ortalama değerler
+
+#### 🗓️ Öğün Planlama (Phase 3 ✅)
+- ✅ **Haftalık Plan Oluşturma** - Tarih aralığı ile
+- ✅ **Günlük Öğün Yönetimi** - Sürükle-bırak, ekle/sil
+- ✅ **Meal Templates** - Yeniden kullanılabilir şablonlar
+- ✅ **Plan-to-Log** - Planı günlüğe kopyalama
+- ✅ **Akıllı Planlama** - Kalori hedefine göre otomatik
+
+#### ⚖️ Kilo Takibi (Phase 3 ✅)
+- ✅ **Kilo Grafiği** - Son 30 günlük line chart
+- ✅ **Hedef Belirleme** - Kilo ver/al/koru
+- ✅ **İlerleme Takibi** - Progress bar + istatistikler
+- ✅ **Vücut Ölçüleri** - Boyun, bel, kalça, göğüs
+- ✅ **BMI Hesaplama** - Otomatik kategori (Zayıf/Normal/Fazla Kilolu/Obez)
+- ✅ **Sağlıklı Değişim Kontrolü** - 0.5-1 kg/hafta validasyon
+- ✅ **CSV Export** - Veri dışa aktarma
+
+#### 💧 Su Takibi (Phase 3 ✅)
+- ✅ **Günlük Bardak Sayacı** - 8 bardak hedef
+- ✅ **Progress Bar** - Görsel ilerleme
+- ✅ **Su Hatırlatıcıları** - Akıllı bildirimler
+  - Interval (15-240 dakika)
+  - Aktif saat aralığı (örn: 8:00-22:00)
+  - 4 ön ayar (Sık, Normal, Rahat, İş Saatleri)
+  - 8 farklı motivasyon mesajı
+- ✅ **Ayarlar Ekranı** - Slider'lar, toggle'lar
+
+#### 🎨 UI/UX Excellence (Phase 1 & 2 ✅)
+- ✅ **Modern Animasyonlar** - Page transitions, micro-interactions
+- ✅ **Skeleton Loading** - Profesyonel yükleme durumları
+- ✅ **Empty States** - 12 farklı boş durum tasarımı
+- ✅ **Bottom Sheets** - Modal'lar, quick actions
+- ✅ **Custom Dialogs** - Success, error, confirmation, info
+- ✅ **Multi-Action FAB** - Speed dial buton (4 eylem)
+- ✅ **Swipeable Items** - Kaydırma gestürleri
+- ✅ **Onboarding** - 5 sayfalık tanıtım
+- ✅ **Profile Wizard** - 6 adımlı kurulum + kalori hesaplama
+- ✅ **Feature Discovery** - Spotlight tooltip'ler
+- ✅ **Dark Mode** - Tam tema desteği
+
+#### 🏆 Başarımlar & Gamification
+- ✅ **20+ Başarım** - 5 kategori (Başlangıç, Düzenlilik, Kalori, Sosyal, Özel)
+- ✅ **Progress Tracking** - %0-100 ilerleme
+- ✅ **Rarity System** - Common, Rare, Epic, Legendary
+- ✅ **Unlock Animations** - Görsel ödüller
+
+#### 🔔 Bildirimler
+- ✅ **Firebase FCM** - Push notification altyapısı
+- ✅ **Su Hatırlatıcıları** - Zamanlanmış bildirimler
+- 🔄 **Öğün Hatırlatıcıları** (planlanan)
+- 🔄 **Başarım Bildirimleri** (planlanan)
+
+#### 👥 Sosyal Özellikler (Phase 4 ✅)
+- ✅ **Kullanıcı Profilleri** - Public/private hesaplar, bio, avatar
+- ✅ **Gönderi Paylaşımı** - Meal posts, fotoğraf yükleme
+- ✅ **Takip Sistemi** - Follow/unfollow, takipçi/takip edilen listeleri
+- ✅ **Activity Feed** - Following ve popular feed'ler
+- ✅ **Like & Comment** - Post beğenme ve yorum yapma
+- ✅ **Liderlik Tablosu** - 3 kategori (Seri, Gönderiler, Takipçiler)
+- ✅ **Bildirim Sistemi** - Like, comment, follow bildirimleri
+- ✅ **Kullanıcı Arama** - Username/full name search
+- ✅ **Profil Düzenleme** - Avatar, bio, username, privacy settings
+
+---
 
 ## 🛠️ Teknoloji Stack
 
+### Frontend
 ```yaml
-Frontend:
-  - Flutter 3.x (Cross-platform: iOS, Android, Web)
-  - Riverpod (State Management)
-  - go_router (Navigation)
+Framework: Flutter 3.x (Cross-platform)
+State Management: Riverpod 2.x
+  - FutureProvider.autoDispose (auto cleanup)
+  - Family providers (dynamic params)
 
-Backend:
-  - Supabase (PostgreSQL, Auth, Storage, Realtime)
-  - Firebase Cloud Messaging (Push Notifications)
+UI Libraries:
+  - fl_chart ^0.68.0              # Grafikler
+  - flutter_animate ^4.5.0         # Animasyonlar
+  - flutter_slidable ^3.1.0        # Swipe gestures
+  - introduction_screen ^3.1.14    # Onboarding
+  - smooth_page_indicator ^1.2.0   # Page indicators
+  - flutter_speed_dial ^7.0.0      # Multi-action FAB
+  - intl ^0.18.0                   # Turkish formatting
 
-AI/ML:
-  - TensorFlow Lite (On-device Turkish food recognition)
-  - Calorie Mama API (Fallback recognition)
+Local Storage:
+  - Hive ^2.2.3                    # NoSQL cache
+  - hive_flutter ^1.1.0
 
-Nutrition APIs:
-  - FatSecret Platform API (Primary)
-  - Open Food Facts (Barcode fallback)
-  - TürKomp Integration (Turkish foods)
-
-UI/Charts:
-  - fl_chart (Kalori grafikleri)
-  - percent_indicator (Progress ring)
-  - cached_network_image (Image caching)
+Notifications:
+  - flutter_local_notifications ^17.0.0
+  - timezone ^0.9.0
 ```
+
+### Backend & Services
+```yaml
+Primary Database: Supabase (PostgreSQL)
+  - 11 tables with RLS policies
+  - Real-time subscriptions
+  - Auto-generated REST API
+
+Authentication: Supabase Auth
+  - Email/password
+  - JWT tokens
+  - Auto-refresh
+
+Push Notifications: Firebase Cloud Messaging
+  - Project ID: turkkalori
+  - Android + iOS support
+
+File Storage: Supabase Storage
+  - 3 buckets: avatars, food_images, post_images
+```
+
+### AI/ML (Planned)
+```yaml
+On-Device: TensorFlow Lite
+  - Turkish food recognition model
+
+Fallback API: Calorie Mama API
+  - Cloud-based recognition
+```
+
+---
 
 ## 📁 Proje Yapısı
 
@@ -51,262 +160,631 @@ UI/Charts:
 lib/
 ├── main.dart
 ├── app.dart
-├── core/
-│   ├── constants/         # Renkler, stringler, API endpoints
-│   ├── utils/            # Yardımcı fonksiyonlar
-│   └── extensions/       # Dart extensions
 ├── config/
-│   ├── routes.dart       # go_router yapılandırması
-│   ├── supabase_config.dart
-│   └── firebase_config.dart
+│   ├── supabase_config.dart          # Supabase client
+│   └── firebase_config.dart          # Firebase setup
+│
+├── core/
+│   └── constants/
+│       └── app_colors.dart           # Color palette
+│
 ├── data/
-│   ├── models/          # Data modelleri
-│   ├── repositories/    # Repository pattern
-│   └── datasources/     # API data sources
-├── presentation/
-│   ├── screens/         # Uygulama ekranları
-│   └── widgets/         # Reusable widget'lar
-└── services/           # Business logic servisleri
-    ├── ai_recognition_service.dart   ✅
-    ├── nutrition_service.dart        🔄
-    ├── auth_service.dart            🔄
-    └── social_service.dart          🔄
+│   └── models/                       # 15+ models
+│       ├── food_item_model.dart
+│       ├── food_log_model.dart
+│       ├── meal_plan_model.dart      # Phase 3
+│       ├── weight_entry_model.dart   # Phase 3
+│       └── achievement_model.dart
+│
+├── services/                         # 13+ services
+│   ├── meal_planning_service.dart    # 15+ methods
+│   ├── weight_tracking_service.dart  # 20+ methods
+│   ├── water_reminder_service.dart   # Phase 3
+│   ├── recent_searches_service.dart  # Hive
+│   ├── smart_suggestions_service.dart
+│   └── nutrition_service.dart
+│
+└── presentation/
+    ├── screens/                      # 30+ screens
+    │   ├── home/
+    │   │   └── home_screen.dart      # Main dashboard
+    │   ├── food_log/
+    │   │   ├── food_search_screen.dart
+    │   │   └── add_food_screen.dart
+    │   ├── meal_planning/            # Phase 3 (3 screens)
+    │   │   ├── meal_plan_screen.dart
+    │   │   ├── create_meal_plan_screen.dart
+    │   │   └── meal_plan_detail_screen.dart
+    │   ├── weight/                   # Phase 3 (3 screens)
+    │   │   ├── weight_tracking_screen.dart
+    │   │   ├── add_weight_entry_screen.dart
+    │   │   └── weight_goal_screen.dart
+    │   ├── settings/
+    │   │   └── water_reminder_settings_screen.dart
+    │   ├── profile/
+    │   │   ├── stats_screen.dart
+    │   │   └── achievements_screen.dart
+    │   └── onboarding/               # Phase 2
+    │       ├── onboarding_screen.dart
+    │       └── profile_setup_wizard.dart
+    │
+    └── widgets/                      # 50+ reusable widgets
+        ├── animations/               # Phase 1
+        │   ├── page_transitions.dart (8 types)
+        │   └── micro_interactions.dart
+        ├── common/
+        │   ├── empty_state.dart      (12 types)
+        │   ├── multi_action_fab.dart
+        │   ├── swipeable_item.dart
+        │   └── custom_bottom_sheet.dart
+        ├── loading/
+        │   └── skeleton_loader.dart  (6 types)
+        ├── modals/
+        │   └── custom_dialog.dart    (5 types)
+        ├── food/
+        │   ├── meal_section.dart
+        │   └── quick_add_section.dart
+        └── tutorial/
+            └── feature_discovery.dart
 
-supabase/
-├── schema.sql                        ✅
-└── seed_turkish_foods.sql            ✅
+.ai/                                  # AI Memory System
+├── README.md                         # Usage guide
+├── project-overview.md               # Project summary
+├── features.md                       # 100+ features
+├── architecture.md                   # Design patterns
+└── decisions.md                      # Technical decisions
 
 docs/
-└── turkish-calorie-app-prompt.md     ✅
+├── YOL_HARITASI.md                   # 12-week roadmap
+└── BILGISAYARDA_CALISTIRMA.md        # Platform-specific setup
 ```
+
+---
 
 ## 🗄️ Veritabanı
 
-### Supabase PostgreSQL Tabloları
+### Supabase PostgreSQL Tables
 
-- ✅ **profiles** - Kullanıcı profilleri
-- ✅ **foods** - Yemek veritabanı (150+ Türk yemeği seed data)
-- ✅ **food_logs** - Kullanıcı yemek kayıtları
-- ✅ **posts** - Sosyal paylaşımlar
-- ✅ **likes** - Beğeniler
-- ✅ **comments** - Yorumlar
-- ✅ **follows** - Takip sistemi
-- ✅ **notifications** - Bildirimler
-- ✅ **achievements** - Başarımlar
+```sql
+-- User & Auth
+✅ users                  # User profiles, goals, preferences
+
+-- Food & Nutrition
+✅ food_items             # 150+ Turkish foods (TürKomp)
+✅ food_logs              # Daily meal entries
+
+-- Meal Planning (Phase 3)
+✅ meal_plans             # Weekly plans (JSONB daily_plans)
+✅ meal_templates         # Reusable meal combos
+
+-- Weight Tracking (Phase 3)
+✅ weight_entries         # Weight logs + measurements
+✅ weight_goals           # Target setting
+
+-- Gamification
+✅ achievements           # 20+ achievements
+✅ user_achievements      # User progress
+
+-- Social (Partial)
+🔄 posts                  # Meal sharing
+🔄 likes                  # Post likes
+🔄 comments               # Post comments
+🔄 follows                # Follow system
+```
+
+### Hive Boxes (Local Storage)
+
+```dart
+✅ onboarding_box         # First-time user flag
+✅ recent_searches_box    # Last 10 searches (FIFO)
+✅ favorite_foods_box     # Favorited foods
+✅ frequent_foods_box     # Usage count (top 20)
+✅ water_reminders_box    # Notification settings
+```
 
 ### Row Level Security (RLS)
 
-Tüm tablolar için RLS politikaları tanımlanmış, kullanıcılar sadece kendi verilerine ve public verilere erişebilir.
+Tüm tablolar için RLS aktif. Kullanıcılar:
+- ✅ Kendi verilerine tam erişim
+- ✅ Public data'ya okuma erişimi
+- ❌ Başkalarının private data'sına erişim YOK
 
-## 🚀 Hızlı Başlangıç (Quick Start)
+---
 
-**Uygulamayı hemen çalıştırmak için:**
+## 🚀 Hızlı Başlangıç
 
-### Windows:
-```cmd
-START.bat dosyasına çift tıklayın
+### Ön Gereksinimler
+
+- **Flutter SDK** 3.0+
+- **Dart SDK** 3.0+
+- Git
+
+### 1️⃣ Repository Clone
+
+```bash
+git clone https://github.com/EmreUludasdemir/Yemek-Kalori-App.git
+cd Yemek-Kalori-App
 ```
 
-### macOS/Linux:
+### 2️⃣ Dependencies Install
+
+```bash
+flutter pub get
+```
+
+### 3️⃣ Çalıştır
+
+**🖥️ Bilgisayarda (Hızlı Test):**
+
+Windows:
+```cmd
+START.bat
+```
+
+macOS/Linux:
 ```bash
 ./start.sh
 ```
 
-**VEYA Manuel:**
+**📱 Mobil (Emulator/Device):**
+
 ```bash
-flutter pub get
+# Android
+flutter run -d android
+
+# iOS (macOS only)
+flutter run -d ios
+
+# Chrome (Web)
 flutter run -d chrome
 ```
 
-**📱 İlk çalıştırma 2-3 dakika sürebilir. Tarayıcı otomatik açılacak!**
+**⚙️ Platform-Specific Setup:**
 
-**Detaylı kurulum için:** [BILGISAYARDA_CALISTIRMA.md](BILGISAYARDA_CALISTIRMA.md) dosyasına bakın.
+Detaylı kurulum için: [BILGISAYARDA_CALISTIRMA.md](BILGISAYARDA_CALISTIRMA.md)
 
 ---
 
-## 🚀 Tam Kurulum
+## ⚙️ Yapılandırma
 
-### Gereksinimler
+### Supabase Setup (Opsiyonel)
 
-- Flutter SDK 3.0+
-- Dart SDK 3.0+
-- Supabase hesabı (opsiyonel - backend için)
-- Firebase projesi (opsiyonel - FCM için)
+Backend özellikleri için Supabase gerekli:
 
-### Adım 1: Bağımlılıkları Yükle
+1. [Supabase](https://app.supabase.com) hesabı oluştur
+2. Yeni proje oluştur
+3. `supabase/schema.sql` dosyasını SQL Editor'de çalıştır
+4. `lib/config/supabase_config.dart` içinde URL ve ANON KEY güncelle
 
-```bash
-flutter pub get
+### Firebase Setup (Opsiyonel)
+
+Push notifications için:
+
+1. Firebase Console'da proje oluştur
+2. Android + iOS uygulamaları ekle
+3. `google-services.json` (Android) ve `GoogleService-Info.plist` (iOS) indir
+4. İlgili klasörlere kopyala
+
+**Platform Permissions:**
+
+**Android** (`android/app/src/main/AndroidManifest.xml`):
+```xml
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 ```
 
-### Adım 2: Supabase Kurulumu
+**iOS:** UserNotifications framework'ü ekle
 
-1. [Supabase](https://app.supabase.com) hesabı oluşturun
-2. Yeni proje oluşturun
-3. `supabase/schema.sql` dosyasını SQL Editor'de çalıştırın
-4. `supabase/seed_turkish_foods.sql` dosyasını çalıştırın
-5. Storage'da 3 bucket oluşturun: `avatars`, `food_images`, `post_images`
-6. `lib/config/supabase_config.dart` dosyasındaki URL ve API key'i güncelleyin
+### Environment Variables
 
-### Adım 3: Firebase Kurulumu ✅
-
-Firebase yapılandırması tamamlanmıştır. Kurulum bilgileri:
-
-**Android:**
-- Package Name: `com.Turkkalori.app`
-- `google-services.json` dosyası: `android/app/google-services.json` konumunda
-- Gradle yapılandırması tamamlandı (Firebase BoM 34.7.0)
-
-**iOS:**
-- Bundle ID: `comTurkkalori.app`
-- `GoogleService-Info.plist` dosyası: `ios/Runner/GoogleService-Info.plist` konumunda
-- Firebase SDK entegrasyonu hazır
-
-**Firebase Servisleri:**
-- ✅ Firebase Cloud Messaging (FCM) - Push notifications
-- ✅ Firebase Analytics
-- ✅ Project ID: `turkkalori`
-- ✅ Storage Bucket: `turkkalori.firebasestorage.app`
-
-**Not:** Firebase yapılandırma dosyaları `.gitignore`'da listelenmiştir ve repo'ya commit edilmemiştir.
-
-### Adım 4: API Key'leri Ayarlayın
-
-`.env` dosyası oluşturun:
+`.env` dosyası oluştur (opsiyonel):
 
 ```env
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-CALORIE_MAMA_API_KEY=your_calorie_mama_api_key
-FATSECRET_API_KEY=your_fatsecret_api_key
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+FIREBASE_API_KEY=your-api-key
 ```
 
-### Adım 5: Uygulamayı Çalıştırın
+---
 
-```bash
-flutter run
+## 📊 Development Status
+
+### ✅ Phase 1: Design System & UI Polish (100%)
+
+- ✅ 8 Page transitions (slide, fade, scale)
+- ✅ Micro-interactions (bouncy button, like animation)
+- ✅ 6 Skeleton loaders (card, list, stats, profile, post, chart)
+- ✅ 12 Empty states (no foods, no meals, no search results...)
+- ✅ Multi-action FAB (speed dial with 4 actions)
+- ✅ Swipeable items (delete, edit, favorite)
+- ✅ Custom bottom sheets (quick add, filters, date picker)
+- ✅ Custom dialogs (success, error, confirmation, info, loading)
+
+**Code:** 3,154 lines | 10 new widgets
+
+---
+
+### ✅ Phase 2: User Experience (100%)
+
+- ✅ Onboarding flow (5 pages)
+- ✅ Profile setup wizard (6 steps + Mifflin-St Jeor calculation)
+- ✅ Feature discovery (spotlight tooltips)
+- ✅ Recent searches (Hive, last 10, FIFO)
+- ✅ Favorite foods (toggle, Hive)
+- ✅ Frequent foods (usage count, top 20, LRU)
+- ✅ Quick add section (3 tabs: Recent/Favorites/Frequent)
+- ✅ Smart suggestions (meal time, similar foods, complementary)
+
+**Code:** 1,962 lines | 6 new files
+
+---
+
+### ✅ Phase 3: Advanced Features (100%)
+
+#### A. Meal Planning
+- ✅ Weekly plan creation (date range)
+- ✅ Daily meal management (add/remove)
+- ✅ Meal templates (save favorites)
+- ✅ Plan-to-log copying (one-click)
+- ✅ Smart generation (calorie target based)
+- ✅ 3 UI screens (main hub, create wizard, daily detail)
+
+**Code:** ~1,200 lines | 2 models + 1 service + 3 screens
+
+#### B. Weight Tracking
+- ✅ Weight entry logging (with date picker)
+- ✅ Line chart (fl_chart, last 30 entries)
+- ✅ Goal setting (lose/maintain/gain)
+- ✅ Progress tracking (percentage, remaining)
+- ✅ Body measurements (neck, waist, hips, chest)
+- ✅ BMI calculator + categories
+- ✅ Healthy change validation (0.5-1 kg/week)
+- ✅ Statistics (highest, lowest, average)
+- ✅ CSV export
+- ✅ 3 UI screens (main tracking, add entry, goal wizard)
+
+**Code:** ~1,700 lines | 3 models + 1 service + 3 screens
+
+#### C. Water Reminders
+- ✅ Notification scheduling (flutter_local_notifications)
+- ✅ Interval settings (15-240 minutes)
+- ✅ Active hours (start/end time)
+- ✅ 4 presets (Frequent, Regular, Relaxed, Work Hours)
+- ✅ 8 motivational messages (randomized)
+- ✅ Settings screen (sliders, toggles)
+- ✅ Test notification button
+
+**Code:** ~850 lines | 1 service + 1 screen
+
+**Phase 3 Total:** ~8,000 lines | 8 screens + 3 services
+
+---
+
+### ✅ Phase 4: Social Features (100%)
+
+#### A. User Profiles & Authentication
+- ✅ Public/private profile settings
+- ✅ Profile editing (username, full name, bio, avatar)
+- ✅ Profile viewing (own + others)
+- ✅ User stats display (posts, followers, following, streak)
+- ✅ User search by username/name
+
+**Code:** ~1,100 lines | 2 screens (profile, edit)
+
+#### B. Social Feed & Posts
+- ✅ Activity feed (Following + Popular tabs)
+- ✅ Post creation (text + photos)
+- ✅ Post display with PostCard widget
+- ✅ Post editing/deletion
+- ✅ Image upload to Supabase Storage
+- ✅ Empty states & error handling
+
+**Code:** ~1,300 lines | 2 screens (feed, create post) + 1 widget (PostCard)
+
+#### C. Engagement Features
+- ✅ Like/Unlike posts (optimistic updates)
+- ✅ Comment on posts
+- ✅ Nested comments support
+- ✅ Comment deletion
+- ✅ View who liked a post
+
+**Code:** ~600 lines | 1 widget (CommentsBottomSheet)
+
+#### D. Follow System
+- ✅ Follow/unfollow users
+- ✅ Followers list
+- ✅ Following list
+- ✅ Follow button in multiple contexts
+- ✅ Suggested users to follow
+
+**Code:** ~700 lines | 1 screen (followers/following)
+
+#### E. Notifications
+- ✅ Notification system (like, comment, follow)
+- ✅ Real-time notification triggers
+- ✅ Unread count badge
+- ✅ Mark as read/mark all as read
+- ✅ Notification navigation
+
+**Code:** ~500 lines | 1 screen (notifications)
+
+#### F. Leaderboard
+- ✅ Streak leaderboard
+- ✅ Posts leaderboard
+- ✅ Followers leaderboard
+- ✅ Medal system for top 3
+- ✅ Refresh functionality
+
+**Code:** ~450 lines | 1 screen (leaderboard)
+
+#### G. Social Service
+- ✅ 40+ API methods for all social features
+- ✅ Posts CRUD operations
+- ✅ Like/comment management
+- ✅ Follow system operations
+- ✅ Notifications management
+- ✅ User profile operations
+- ✅ Leaderboard queries
+- ✅ Image upload to storage
+
+**Code:** ~690 lines | 1 service (social_service.dart)
+
+**Phase 4 Total:** ~6,000 lines | 7 screens + 2 widgets + 1 service + 2 models
+
+---
+
+### ✅ Phase 5: Technical Improvements (Complete)
+
+#### A. Image Processing Service
+- ✅ ImagePickerService with gallery/camera picker
+- ✅ Image compression (flutter_image_compress)
+- ✅ Image cropping (image_cropper)
+- ✅ Specialized avatar picker (square crop, 512x512)
+- ✅ Specialized post image picker (1920x1920 max)
+- ✅ Source selection bottom sheet
+- ✅ Integration in CreatePostScreen and EditProfileScreen
+
+**Code:** ~300 lines | 1 service (image_picker_service.dart)
+
+#### B. Firebase Analytics
+- ✅ Firebase Analytics integration
+- ✅ User event tracking (login, signup)
+- ✅ Food logging events
+- ✅ Social events (post, like, comment, follow)
+- ✅ Achievement events
+- ✅ Meal planning events
+- ✅ Weight/water tracking events
+- ✅ Error tracking
+
+**Code:** ~200 lines | 1 service (analytics_service.dart)
+
+#### C. Cache Service
+- ✅ In-memory cache with LRU eviction
+- ✅ TTL (Time To Live) support
+- ✅ Pattern-based invalidation
+- ✅ Get-or-set pattern
+- ✅ Cache statistics
+
+**Code:** ~150 lines | 1 service (cache_service.dart)
+
+#### D. Exception Handling
+- ✅ Custom exception hierarchy
+- ✅ NetworkException (connection, timeout, server)
+- ✅ AuthException (credentials, session)
+- ✅ DataException (CRUD operations)
+- ✅ ValidationException (required, format, range)
+- ✅ StorageException (upload/download)
+- ✅ ImageException (pick, compress)
+- ✅ CacheException (read/write/clear)
+- ✅ PermissionException (camera, photo, notification)
+- ✅ RateLimitException & UnknownException
+
+**Code:** ~200 lines | 1 file (app_exceptions.dart)
+
+#### E. Connectivity Service
+- ✅ Network connectivity monitoring
+- ✅ Stream-based connectivity changes
+- ✅ Connection type detection (WiFi, Mobile, etc.)
+- ✅ Wait for connection with timeout
+
+**Code:** ~100 lines | 1 service (connectivity_service.dart)
+
+#### F. Unit Tests
+- ✅ UserProfile model tests (fromJson, toJson, copyWith)
+- ✅ Post & Comment model tests
+- ✅ CacheService tests (LRU, TTL, invalidation)
+
+**Code:** ~250 lines | 3 test files
+
+**Phase 5 Total:** ~1,200 lines | 5 services + 1 exception file + 3 test files
+
+---
+
+### 🔄 Phase 6: Premium Features (Planned)
+
+- [ ] Custom diet plans
+- [ ] Nutritionist consultation
+- [ ] Advanced analytics
+- [ ] Ad-free experience
+- [ ] Priority support
+- [ ] Recipe database (100+ Turkish recipes)
+- [ ] Cooking mode (step-by-step)
+
+---
+
+## 🎨 Design System
+
+### Color Palette
+
+```dart
+Primary:    #2196F3 (Blue)
+Secondary:  #FF9800 (Orange)
+Success:    #4CAF50 (Green)
+Error:      #F44336 (Red)
+Warning:    #FFC107 (Amber)
+
+Semantic:
+Protein:    #F44336 (Red)
+Carbs:      #FF9800 (Orange)
+Fat:        #9C27B0 (Purple)
+
+Meal Types:
+Breakfast:  #FFC107 (Yellow)
+Lunch:      #2196F3 (Blue)
+Dinner:     #673AB7 (Purple)
+Snack:      #4CAF50 (Green)
 ```
 
-## 📊 Tamamlanma Durumu
+### Typography
 
-### ✅ Tamamlanan (MVP %95)
+- **Headings:** Bold, 18-24px
+- **Body:** Regular, 14-16px
+- **Caption:** Light, 12px
 
-#### Core Features
-- [x] Proje yapısı ve klasör organizasyonu
-- [x] Tema ve tasarım sistemi (renkler, tipografi)
-- [x] Supabase veritabanı şeması (11 tablo + triggers + RLS)
-- [x] Türk yemekleri seed data (150+ yemek)
-- [x] Authentication (login/register) + profil oluşturma
-- [x] Ana sayfa - Kalori tracking (progress ring, makro barlar)
-- [x] Yemek arama - Full-text search, kategori filtreleme
-- [x] Yemek ekleme - Porsiyon ayarlama, öğün seçimi
-- [x] Barkod tarama - mobile_scanner entegrasyonu
-- [x] Kamera/Galeri picker - AI tanıma UI
-- [x] Su takibi - Günlük bardak sayısı
+### Spacing
 
-#### Advanced Features
-- [x] AI yemek tanıma servisi (TFLite + Calorie Mama API placeholders)
-- [x] İstatistikler - Haftalık/aylık grafikler (fl_chart)
-  - [x] Line chart (kalori grafikleri)
-  - [x] Pie chart (makro dağılımı)
-  - [x] Özet kartları
-- [x] Başarımlar - 11 başarım, 4 kategori, puan sistemi
-- [x] Push Notifications - Firebase FCM servisi
-- [x] Dark Mode - Hive ile kalıcı tema tercihi
-- [x] Ayarlar Paneli - Görünüm, bildirimler, gizlilik
-- [x] Sosyal feed ekranı ve post card widget
-- [x] Profil ekranı - Stats, hedefler, düzenleme
-- [x] Edit Profile - Hedef güncelleme
-- [x] Environment configuration (.env.example)
+- **xs:** 4px
+- **sm:** 8px
+- **md:** 16px
+- **lg:** 24px
+- **xl:** 32px
 
-#### Data & Models
-- [x] Data modelleri (User, Post, Comment, FoodLog, FoodItem)
-- [x] Service layer (Auth, Nutrition, AI, Achievement, Notification)
-- [x] Riverpod providers (state management)
-- [x] Navigation (go_router with auth guards)
+---
 
-#### Testing & Documentation
-- [x] Unit testler (FoodLog, Achievement)
-- [x] README güncellendi
-- [x] .gitignore oluşturuldu
+## 🤖 AI Memory System
 
-### 🔄 Gelecek İyileştirmeler
+Bu proje **AI context persistence** için özel bir bellek sistemi içerir (`.ai/` klasörü).
 
-- [ ] TFLite model eğitimi (TurkishFoods-15 dataset)
-- [ ] Calorie Mama API key entegrasyonu
-- [ ] Sosyal özellikler backend (like, comment işlemleri)
-- [ ] Offline sync (Hive cache)
-- [ ] Widget testleri
-- [ ] Integration testleri
+### Amaç
 
-### 📋 Planlanan (v2.0)
+Farklı AI asistanların (Claude, ChatGPT) projeyi hızlıca anlaması için:
 
-- [ ] Türkçe/İngilizce lokalizasyon (i18n)
-- [ ] Yemek planlayıcı
-- [ ] Tarif veritabanı
-- [ ] Kilo takibi grafiği
-- [ ] Export (PDF/CSV)
-- [ ] Wearable entegrasyonu
-- [ ] App Store / Play Store yayını
+- **project-overview.md** - Proje özeti (~400 satır)
+- **features.md** - 100+ özellik listesi (~1200 satır)
+- **architecture.md** - Mimari & design patterns (~800 satır)
+- **decisions.md** - Teknik kararlar (~600 satır)
 
-## 🎨 UI/UX Tasarım
+### Kullanım
 
-### Renk Paleti
+AI asistanına şunu söyleyin:
+```
+"Read the .ai/ directory to understand this project."
+```
 
-- **Primary**: `#4CAF50` (Yeşil - Sağlık)
-- **Accent**: `#FF5722` (Turuncu - Enerji)
-- **Protein**: `#2196F3` (Mavi)
-- **Carbs**: `#FFC107` (Sarı)
-- **Fat**: `#E91E63` (Pembe)
+Detaylar için: [.ai/README.md](.ai/README.md)
 
-### Ekran Tasarımları
+---
 
-Detaylı UI mockup'lar için `docs/turkish-calorie-app-prompt.md` dosyasına bakın.
+## 📊 Metrics
 
-## 💰 Maliyet Tahmini (MVP)
+```
+📝 Total Lines of Code:    ~29,000
+📁 Total Files:            ~120
+🖼️ Screens:                37+
+🧩 Widgets:                52+
+📦 Models:                 20+
+⚙️ Services:               14+
+🎯 Features:               150+
+```
 
-| Servis | Aylık Maliyet |
-|--------|---------------|
-| Supabase Pro | $25 |
-| ImageKit | $9 |
-| Firebase FCM | Ücretsiz |
-| FatSecret API | $0-19 (Free tier) |
-| **TOPLAM** | **~$34-54** |
+---
 
 ## 🔐 Güvenlik
 
-- Row Level Security (RLS) aktif
-- JWT token authentication
-- API key'ler environment variables'da
-- Input validation tüm formlarda
-- KVKK uyumlu veri işleme
-
-## 📱 Desteklenen Platformlar
-
-- ✅ iOS 12+
-- ✅ Android 5.0+ (API 21+)
-- ✅ Web (responsive)
-- 🔄 macOS (opsiyonel)
-- 🔄 Windows (opsiyonel)
-
-## 🌍 Lokalizasyon
-
-- 🇹🇷 Türkçe (Varsayılan)
-- 🇺🇸 İngilizce (Planlanan)
-
-## 📝 Lisans
-
-Bu proje özel bir proje olup, ticari kullanım için geliştirilmiştir.
-
-## 👥 Katkıda Bulunanlar
-
-- **Geliştirici**: Claude AI
-- **Proje Sahibi**: [İsminiz]
-
-## 📞 İletişim
-
-Sorularınız için: [email@example.com]
+- ✅ Row Level Security (RLS) on all tables
+- ✅ JWT token authentication
+- ✅ API keys in environment variables
+- ✅ Input validation on all forms
+- ✅ KVKK uyumlu veri işleme
+- ✅ Secure storage (Hive encrypted boxes)
 
 ---
 
-**MVP Hedefi**: 3-4 ay | **İlk Kullanıcı Hedefi**: 10K+ | **Pazar**: Türkiye (85M+ nüfus)
+## 📱 Desteklenen Platformlar
+
+| Platform | Durum | Min Version |
+|----------|-------|-------------|
+| Android  | ✅ Fully Supported | API 21 (5.0) |
+| iOS      | ✅ Fully Supported | iOS 12+ |
+| Web      | ✅ Responsive | Modern browsers |
+| macOS    | 🔄 Opsiyonel | macOS 10.14+ |
+| Windows  | 🔄 Opsiyonel | Windows 10+ |
+
+---
+
+## 🌍 Localization
+
+- 🇹🇷 **Türkçe** - Varsayılan (100%)
+- 🇺🇸 **English** - Planlanan (0%)
+
+Tarih/saat formatları **intl** package ile Türkçe'ye uyarlanmış.
+
+---
+
+## 💰 Maliyet Tahmini (10K kullanıcı/ay)
+
+| Service | Plan | Monthly Cost |
+|---------|------|--------------|
+| Supabase | Pro | $25 |
+| Firebase | Blaze (Pay as you go) | ~$10 |
+| flutter_local_notifications | Free | $0 |
+| **TOTAL** | | **~$35/month** |
+
+**Not:** 100K kullanıcıya kadar ölçeklenebilir (~$100-150/month)
+
+---
+
+## 🛣️ Roadmap
+
+Detaylı yol haritası: [docs/YOL_HARITASI.md](docs/YOL_HARITASI.md)
+
+**Özet:**
+- ✅ **Phase 1-4:** Complete (Design + UX + Advanced Features + Social)
+- 🔄 **Phase 5:** Technical Improvements (2-3 hafta)
+- 🔄 **Phase 6:** Premium Features (8-10 hafta)
+
+**Estimated Production Ready:** 2-3 months (Phase 5 & 6)
+
+---
+
+## 📝 License
+
+Bu proje özel (private) bir projedir. Ticari kullanım için geliştirilmiştir.
+
+---
+
+## 👥 Contributors
+
+- **Developer:** EmreUludasdemir
+- **AI Assistant:** Claude (Anthropic)
+- **Repository:** [github.com/EmreUludasdemir/Yemek-Kalori-App](https://github.com/EmreUludasdemir/Yemek-Kalori-App)
+
+---
+
+## 📞 Contact
+
+Sorularınız için:
+- **GitHub Issues:** [Create an issue](https://github.com/EmreUludasdemir/Yemek-Kalori-App/issues)
+- **Email:** [İletişim bilgisi eklenecek]
+
+---
+
+## 🙏 Acknowledgments
+
+- [Supabase](https://supabase.com) - Backend infrastructure
+- [Firebase](https://firebase.google.com) - Push notifications
+- [fl_chart](https://pub.dev/packages/fl_chart) - Beautiful charts
+- [TürKomp](http://www.turkomp.gov.tr) - Turkish food database
+
+---
+
+<div align="center">
+
+**Built with ❤️ using Flutter**
+
+*Last Updated: 2025-12-25*
+*Version: Phase 4 Complete*
+
+[⬆ Back to top](#-türkkalori---ai-destekli-kalori-takip-uygulaması)
+
+</div>

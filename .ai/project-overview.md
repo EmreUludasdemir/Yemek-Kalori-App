@@ -27,7 +27,9 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 - **Firebase** - FCM push notifications, Analytics
 - **Hive** - Local NoSQL storage
 - **Camera** - Food photography
-- **Image Picker** - Photo selection
+- **Image Picker** - Photo selection with compression & cropping
+- **Connectivity Plus** - Network monitoring
+- **Path Provider** - File system access
 
 ### Design System
 - **Custom animations** - Page transitions, micro-interactions
@@ -38,7 +40,7 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 ## 📊 Veritabanı Yapısı
 
 ### Ana Tablolar
-1. **users** - Kullanıcı profilleri
+1. **profiles** - Kullanıcı profilleri (bio, avatar, is_public, followers/following counts)
 2. **food_items** - Türk yemekleri veritabanı
 3. **food_logs** - Günlük yemek kayıtları
 4. **achievements** - Başarım sistemi
@@ -46,6 +48,11 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 6. **meal_templates** - Yeniden kullanılabilir şablonlar
 7. **weight_entries** - Kilo takibi kayıtları
 8. **weight_goals** - Hedef kilo ayarları
+9. **posts** - Sosyal gönderi paylaşımları (Phase 4)
+10. **likes** - Post beğenileri (Phase 4)
+11. **comments** - Post yorumları (Phase 4)
+12. **follows** - Takip sistemi (Phase 4)
+13. **notifications** - Bildirim sistemi (Phase 4)
 
 ### Hive Boxes (Local Storage)
 - **onboarding_box** - İlk kullanım kontrolü
@@ -78,7 +85,7 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 
 ## 🚀 Temel Özellikler
 
-### ✅ Tamamlanmış (Faz 1-3)
+### ✅ Tamamlanmış (Faz 1-5)
 
 **Kimlik Doğrulama**
 - Email/password login
@@ -137,6 +144,24 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 - Bottom sheets
 - Custom dialogs
 
+**Sosyal Özellikler** (Faz 4)
+- Kullanıcı profilleri (avatar, bio, stats)
+- Takip sistemi (follow/unfollow)
+- Post paylaşımı (text + image)
+- Like ve comment sistemi
+- Activity feed
+- Notifications sistemi
+- Leaderboard (streak, posts, followers)
+- Image upload (Supabase Storage)
+
+**Teknik İyileştirmeler** (Faz 5)
+- Image picker (compression, cropping)
+- Firebase Analytics (20+ event tracking)
+- Cache service (LRU, TTL)
+- Exception handling (10+ custom exception types)
+- Connectivity service (network monitoring)
+- Unit tests (models, services)
+
 ### 🚧 Kısmi Tamamlanmış
 
 **AI Yemek Tanıma**
@@ -147,24 +172,25 @@ TürkKalori, Türk mutfağına özel yemeklerle kalori takibi yapmanızı sağla
 - Backend hazır
 - Hatırlatıcı sistemi eksik
 
-### ⏳ Planlanmış (Faz 4+)
+### ⏳ Planlanmış (Faz 6+)
 
 **Tarif Veritabanı**
 - 100+ Türk yemeği tarifi
 - Adım adım talimatlar
 - Cooking mode
 
-**Sosyal Özellikler**
-- Kullanıcı profilleri
-- Takip sistemi
-- Post paylaşımı
-- Yemek galerisi
-
 **Premium Özellikler**
 - Özel diyet planları
 - Profesyonel danışmanlık
 - Gelişmiş analitik
 - Reklamsız deneyim
+
+**İleri Teknik Özellikler**
+- Offline mode (Drift/SQLite sync)
+- Performance monitoring (Firebase Performance)
+- Crash reporting (Crashlytics)
+- Widget tests
+- Integration tests (E2E)
 
 ## 📁 Proje Yapısı
 
@@ -187,28 +213,37 @@ lib/
 └── services/            # Business logic
     ├── meal_planning_service.dart
     ├── weight_tracking_service.dart
+    ├── water_reminder_service.dart
+    ├── social_service.dart          # Phase 4 - 40+ methods
     ├── recent_searches_service.dart
     ├── smart_suggestions_service.dart
-    └── nutrition_service.dart
+    ├── nutrition_service.dart
+    ├── image_picker_service.dart    # Phase 5 - Image processing
+    ├── analytics_service.dart       # Phase 5 - Firebase Analytics
+    ├── cache_service.dart           # Phase 5 - LRU cache
+    └── connectivity_service.dart    # Phase 5 - Network monitoring
 ```
 
 ## 🔄 Aktif Geliştirme Döngüsü
 
 **Faz 1** ✅ Tasarım Sistemi & UI Polish
 **Faz 2** ✅ Kullanıcı Deneyimi (Onboarding, Tutoriallar)
-**Faz 3** 🟡 Advanced Features (Meal Planning, Weight Tracking, Water Reminders)
-**Faz 4** ⏳ Sosyal & Topluluk
-**Faz 5** ⏳ Teknik İyileştirmeler (Offline, Cache, Performance)
+**Faz 3** ✅ Advanced Features (Meal Planning, Weight Tracking, Water Reminders)
+**Faz 4** ✅ Sosyal & Topluluk (Profiles, Feed, Follow, Like/Comment, Leaderboard)
+**Faz 5** ✅ Teknik İyileştirmeler (Image Processing, Analytics, Cache, Exception Handling, Tests)
 **Faz 6** ⏳ Premium Özellikler
 
 ## 📈 Metrikler
 
-- **Toplam Satır:** ~15,000+ (Phase 3 sonrası)
-- **Model Sayısı:** 15+
-- **Servis Sayısı:** 10+
-- **Ekran Sayısı:** 25+
-- **Widget Sayısı:** 40+
+- **Toplam Satır:** ~30,200+ (Phase 5 sonrası)
+- **Model Sayısı:** 20+
+- **Servis Sayısı:** 18+
+- **Ekran Sayısı:** 37+
+- **Widget Sayısı:** 52+
 - **Animasyon Tipi:** 10+
+- **API Methodları:** 100+
+- **Features:** 160+
+- **Test Files:** 3 (unit tests)
 
 ## 🎓 Öğrenilen Dersler
 
@@ -226,12 +261,14 @@ lib/
 ## 🐛 Bilinen Limitasyonlar
 
 1. AI yemek tanıma backend'i bağlanmamış
-2. Offline mod henüz yok
+2. Offline mod henüz yok (local-first sync)
 3. Health app entegrasyonu yok (Apple Health, Google Fit)
-4. Social features eksik
-5. Recipe database boş
-6. Water reminders eksik
-7. Export/Import limited (sadece weight CSV)
+4. Recipe database boş
+5. Pagination eksik (feed, comments için TODO)
+6. Real-time subscription eksik (canlı bildirim için)
+7. Performance monitoring eksik (Firebase Performance)
+8. Crash reporting eksik (Crashlytics)
+9. Widget tests ve integration tests yok
 
 ## 🔐 Environment Variables
 
@@ -258,5 +295,5 @@ FIREBASE_APP_ID=your_app_id
 
 ---
 
-*Son Güncelleme: 2025-12-25*
-*Versiyon: Phase 3 - Meal Planning & Weight Tracking Complete*
+*Son Güncelleme: 2025-12-26*
+*Versiyon: Phase 5 - COMPLETE (Technical Improvements: Image Processing, Analytics, Cache, Exception Handling, Connectivity, Unit Tests)*

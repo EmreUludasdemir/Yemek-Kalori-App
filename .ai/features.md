@@ -326,34 +326,56 @@ Tüm özelliklerin detaylı listesi ve implement durumları.
 **Export:**
 - exportWeightDataCSV() - Date, weight, notes
 
-### ⏳ Weight UI (Planned)
-- Weight entry screen
-- Line chart (12 weeks)
-- Goal progress card
-- Photo gallery
-- Body measurements form
-- BMI calculator
+### ✅ Weight UI (Phase 3)
+**Files:**
+- `lib/presentation/screens/weight/weight_tracking_screen.dart` (~800 lines)
+- `lib/presentation/screens/weight/add_weight_entry_screen.dart` (~400 lines)
+- `lib/presentation/screens/weight/weight_goal_screen.dart` (~500 lines)
+
+**Features:**
+- ✅ Weight entry screen with date picker
+- ✅ Line chart (fl_chart, last 30 entries)
+- ✅ Goal progress card with percentage
+- ✅ Body measurements form (neck, waist, hips, chest)
+- ✅ BMI calculator (in service)
+- ✅ History tab with swipe-to-delete
+- ✅ Stats cards (highest, lowest, average)
+- ✅ Goal wizard with prediction
+- ✅ Healthy weight change validation
+- ❌ Photo gallery (planned)
 
 ---
 
 ## 💧 Water Tracking
 
-### 🟡 Water System (Partial)
-**File:** `lib/presentation/screens/home/home_screen.dart`
+### ✅ Water System (Phase 3)
+**Files:**
+- `lib/presentation/screens/home/home_screen.dart`
+- `lib/services/water_reminder_service.dart` (~350 lines)
+- `lib/presentation/screens/settings/water_reminder_settings_screen.dart` (~500 lines)
 
-**Current:**
+**Tracking:**
 - ✅ Glass counter (8 glasses target)
 - ✅ Progress bar
 - ✅ Add water button
 - ✅ Hive persistence
 - ✅ Daily reset (midnight)
 
+**Reminder System:**
+- ✅ Water reminders (flutter_local_notifications)
+- ✅ Interval scheduling (15-240 minutes)
+- ✅ Active hours (start/end time)
+- ✅ 4 preset schedules (Frequent, Regular, Relaxed, Work Hours)
+- ✅ Random motivational messages (8 variants)
+- ✅ Settings screen (sliders, toggles, presets)
+- ✅ Test notification button
+- ✅ Statistics (reminders per day)
+
 **Missing:**
-- ❌ Water reminders (notifications)
 - ❌ Custom containers (bottle sizes)
-- ❌ Hydration stats screen
+- ❌ Hydration stats screen (dedicated)
 - ❌ Streak tracking
-- ❌ Activity-based reminders
+- ❌ Activity-based reminders (step counter integration)
 
 ---
 
@@ -626,6 +648,289 @@ Tüm özelliklerin detaylı listesi ve implement durumları.
 
 ---
 
+## ✅ Social Features (Phase 4 - COMPLETE)
+
+**Files:**
+- `lib/data/models/follow_model.dart`
+- `lib/data/models/notification_model.dart`
+- `lib/services/social_service.dart`
+- `lib/presentation/screens/social/user_profile_screen.dart`
+- `lib/presentation/screens/social/edit_profile_screen.dart`
+- `lib/presentation/screens/social/followers_screen.dart`
+- `lib/presentation/screens/social/create_post_screen.dart`
+- `lib/presentation/screens/social/notifications_screen.dart`
+- `lib/presentation/screens/social/leaderboard_screen.dart`
+- `lib/presentation/screens/social/feed_screen.dart` (updated)
+- `lib/presentation/widgets/social/post_card.dart` (updated)
+- `lib/presentation/widgets/social/comments_bottom_sheet.dart`
+
+### ✅ User Profiles (2 screens, ~1,100 lines)
+- View public/private profiles
+- Profile editing (username, full name, bio, avatar)
+- Stats display (posts, followers, following, streak)
+- Own profile vs others view
+- Profile privacy toggle
+- User search by username/name
+
+### ✅ Social Feed (2 screens + 1 widget, ~1,300 lines)
+- Following feed (posts from followed users)
+- Popular feed (all public posts)
+- Post creation (text + photos)
+- Post editing/deletion
+- Image upload to Supabase Storage
+- Empty states & error handling
+- Real-time feed updates
+- Pull-to-refresh
+
+### ✅ Engagement (1 widget, ~600 lines)
+- Like/Unlike posts (optimistic updates)
+- Comment on posts
+- Nested comments support
+- Comment deletion
+- View who liked a post
+- Comments bottom sheet
+- Turkish timeago formatting
+
+### ✅ Follow System (1 screen, ~700 lines)
+- Follow/unfollow users
+- Followers list with stats
+- Following list with stats
+- Follow button in multiple contexts
+- Suggested users to follow
+- Follower count updates (database triggers)
+
+### ✅ Notifications (1 screen, ~500 lines)
+- Like notifications
+- Comment notifications
+- Follow notifications
+- Real-time notification triggers
+- Unread count badge
+- Mark as read/mark all as read
+- Notification navigation
+- Turkish timeago
+
+### ✅ Leaderboard (1 screen, ~450 lines)
+- Streak leaderboard (top users by streak_days)
+- Posts leaderboard (top users by posts_count)
+- Followers leaderboard (top users by followers_count)
+- Medal system for top 3
+- Refresh functionality
+- User profile navigation
+
+### ✅ Social Service (1 service, ~690 lines)
+**40+ API Methods:**
+- Posts: getFeedPosts, getUserPosts, getPostById, createPost, updatePost, deletePost
+- Likes: togglePostLike, isPostLikedByCurrentUser, getPostLikes
+- Comments: getPostComments, createComment, updateComment, deleteComment, toggleCommentLike
+- Follows: followUser, unfollowUser, isFollowing, getFollowers, getFollowing, getFollowingIds, getSuggestedUsers
+- Profile: getUserProfile, updateUserProfile, searchUsers, getLeaderboard
+- Notifications: getNotifications, getUnreadNotificationCount, markNotificationAsRead, markAllNotificationsAsRead
+- Storage: uploadPostImage, uploadAvatar
+
+**Database Integration:**
+- Supabase queries with RLS policies
+- Real-time subscription support
+- Optimistic updates
+- Error handling
+- Pagination support
+- Join queries for relational data
+
+**Phase 4 Total:** ~6,000 lines | 7 screens + 2 widgets + 1 service + 2 models
+
+---
+
+## 🛠️ Phase 5: Technical Improvements
+
+### ✅ Image Processing Service
+**File:** `lib/services/image_picker_service.dart`
+
+**Features:**
+- **Gallery & Camera Picker** - Source selection bottom sheet
+- **Image Compression** - flutter_image_compress (configurable quality)
+- **Image Cropping** - image_cropper integration
+- **Avatar Picker** - Square crop, 512x512 max, 90% quality
+- **Post Image Picker** - 1920x1920 max, 85% quality
+- **File Management** - Temporary file handling
+
+**Methods:**
+- `pickFromGallery()` - Pick from gallery with options
+- `pickFromCamera()` - Take photo with options
+- `pickAvatar()` - Specialized avatar picker
+- `pickPostImage()` - Specialized post image picker
+- `showImageSourcePicker()` - Source selection UI
+- Internal `_compressImage()` - Compression helper
+- Internal `_cropImage()` - Cropping helper
+
+**Integration:**
+- CreatePostScreen - Post image selection
+- EditProfileScreen - Avatar selection
+
+**Code:** ~300 lines
+
+### ✅ Firebase Analytics
+**File:** `lib/services/analytics_service.dart`
+
+**Event Categories:**
+- **User Events** - Login, signup
+- **Food Events** - Food added, meal logged, AI scan used
+- **Social Events** - Post created, like/comment/follow actions
+- **Achievement Events** - Achievement unlocked, streak updated
+- **Planning Events** - Meal plan created/followed
+- **Tracking Events** - Weight logged, water logged, goal updated
+- **Error Events** - Error tracking with type and message
+
+**Methods:**
+- `logLogin()` / `logSignup()` - Auth events
+- `logFoodAdded()` / `logMealLogged()` / `logAIScanUsed()` - Food events
+- `logPostCreated()` / `logLikeGiven()` / `logCommentAdded()` / `logUserFollowed()` - Social events
+- `logAchievementUnlocked()` / `logStreakUpdated()` - Achievement events
+- `logMealPlanCreated()` / `logMealPlanFollowed()` - Planning events
+- `logWeightLogged()` / `logWaterLogged()` / `logGoalUpdated()` - Tracking events
+- `logError()` - Error tracking
+
+**Code:** ~200 lines
+
+### ✅ Cache Service
+**File:** `lib/services/cache_service.dart`
+
+**Features:**
+- **LRU Eviction** - Least Recently Used policy
+- **TTL Support** - Time To Live for cache entries
+- **Pattern Invalidation** - Clear cache by key pattern
+- **Get-Or-Set Pattern** - Fetch and cache in one call
+- **Cache Statistics** - Size, contains checks
+
+**Methods:**
+- `set<T>(key, value, {ttlSeconds})` - Store value with TTL
+- `get<T>(key)` - Retrieve value (null if expired/missing)
+- `remove(key)` - Delete single entry
+- `clear()` - Clear all cache
+- `contains(key)` - Check existence
+- `invalidatePattern(pattern)` - Remove matching keys
+- `getOrSet<T>({key, fetcher, ttlSeconds})` - Fetch and cache
+
+**Configuration:**
+- Default max size: 100 entries
+- Default TTL: 300 seconds (5 minutes)
+- Configurable `maxSize` property
+
+**Code:** ~150 lines
+
+### ✅ Exception Handling
+**File:** `lib/core/exceptions/app_exceptions.dart`
+
+**Exception Hierarchy:**
+
+**NetworkException:**
+- `noConnection()` - No internet connection
+- `timeout()` - Request timeout
+- `serverError(statusCode)` - Server errors
+
+**AuthException:**
+- `invalidCredentials()` - Wrong email/password
+- `sessionExpired()` - Token expired
+- `userNotFound()` - User doesn't exist
+- `emailInUse()` - Duplicate email
+- `weakPassword()` - Password too weak
+
+**DataException:**
+- `notFound(resource)` - Resource not found
+- `createFailed(resource)` - Creation failed
+- `updateFailed(resource)` - Update failed
+- `deleteFailed(resource)` - Deletion failed
+
+**ValidationException:**
+- `required(field)` - Missing required field
+- `invalidFormat(field)` - Wrong format
+- `outOfRange(field, min, max)` - Value out of bounds
+- `custom(message, {fieldErrors})` - Custom validation
+
+**StorageException:**
+- `uploadFailed(fileName)` - File upload failed
+- `downloadFailed(fileName)` - File download failed
+- `fileTooLarge(maxSize)` - File exceeds limit
+- `invalidFileType(allowedTypes)` - Wrong file type
+
+**ImageException:**
+- `pickCancelled()` - User cancelled picker
+- `pickFailed()` - Picker error
+- `compressionFailed()` - Compression error
+- `cropFailed()` - Cropping error
+
+**CacheException:**
+- `readFailed(key)` - Read error
+- `writeFailed(key)` - Write error
+- `clearFailed()` - Clear error
+
+**PermissionException:**
+- `cameraDenied()` - Camera permission denied
+- `photoDenied()` - Photo library denied
+- `notificationDenied()` - Notification denied
+
+**RateLimitException:**
+- `tooManyRequests(retryAfter)` - Rate limit hit
+
+**UnknownException:**
+- Generic fallback exception
+
+**Code:** ~200 lines
+
+### ✅ Connectivity Service
+**File:** `lib/services/connectivity_service.dart`
+
+**Features:**
+- **Network Monitoring** - Real-time connectivity changes
+- **Connection Type Detection** - WiFi, Mobile, Ethernet, VPN, Bluetooth
+- **Stream API** - Listen to connectivity changes
+- **Wait For Connection** - Async wait with timeout
+
+**Methods:**
+- `initialize()` - Start monitoring
+- `checkConnectivity()` - Get current status
+- `getConnectionType()` - Get connection type string (Turkish)
+- `waitForConnection({timeout})` - Wait until connected
+- `dispose()` - Clean up resources
+
+**Properties:**
+- `isConnected` - Current status (bool)
+- `connectivityStream` - Stream<bool> for changes
+
+**Code:** ~100 lines
+
+### ✅ Unit Tests
+**Files:**
+- `test/models/user_model_test.dart`
+- `test/models/post_model_test.dart`
+- `test/services/cache_service_test.dart`
+
+**Test Coverage:**
+
+**UserProfile Model (user_model_test.dart):**
+- `fromJson` - JSON deserialization
+- `toJson` - JSON serialization
+- `copyWith` - Immutable updates
+- Default values - Missing field handling
+
+**Post & Comment Models (post_model_test.dart):**
+- Post: `fromJson`, `toJson`, `copyWith`
+- Comment: `fromJson`, `toJson`
+
+**CacheService (cache_service_test.dart):**
+- Set and get operations
+- Get returns null for missing/expired
+- Remove and clear operations
+- Contains checks
+- Size tracking
+- LRU eviction on max size
+- Pattern-based invalidation
+- GetOrSet with fetcher function
+
+**Code:** ~250 lines total
+
+**Phase 5 Total:** ~1,200 lines | 5 services + 1 exception file + 3 test files
+
+---
+
 ## 🔮 Future Features (Not Implemented)
 
 ### Recipe Database
@@ -634,14 +939,6 @@ Tüm özelliklerin detaylı listesi ve implement durumları.
 - Ingredient lists
 - Cooking mode
 - Timer integration
-
-### Social Features
-- User profiles
-- Follow system
-- Activity feed
-- Meal sharing
-- Like/comment
-- Leaderboards
 
 ### Health Integration
 - Apple Health sync
@@ -672,6 +969,7 @@ Tüm özelliklerin detaylı listesi ve implement durumları.
 
 ---
 
-*Last Updated: 2025-12-25*
-*Total Features: 100+*
-*Completion: ~70% (Phase 3)*
+*Last Updated: 2025-12-26*
+*Total Features: 160+*
+*Completion: ~85% (Phase 5 Complete)*
+*Remaining: Premium Features (Phase 6)*
