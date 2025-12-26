@@ -1,0 +1,625 @@
+{
+  "@@locale": "tr",
+  "@@context": "TürkKalori - Turkish Calorie Tracking App",
+
+  "_comment_app": "═══════════════════════════════════════════════════════════════",
+  "_comment_app_2": "APP GENERAL",
+  "_comment_app_3": "═══════════════════════════════════════════════════════════════",
+
+  "appTitle": "TürkKalori",
+  "@appTitle": {
+    "description": "Application name"
+  },
+
+  "appTagline": "Türk Mutfağına Özel Kalori Takibi",
+  "@appTagline": {
+    "description": "Application tagline"
+  },
+
+  "loading": "Yükleniyor...",
+  "error": "Hata",
+  "success": "Başarılı",
+  "cancel": "İptal",
+  "ok": "Tamam",
+  "save": "Kaydet",
+  "delete": "Sil",
+  "edit": "Düzenle",
+  "close": "Kapat",
+  "back": "Geri",
+  "next": "İleri",
+  "done": "Bitti",
+  "skip": "Geç",
+  "retry": "Tekrar Dene",
+  "confirm": "Onayla",
+  "yes": "Evet",
+  "no": "Hayır",
+  "search": "Ara",
+  "filter": "Filtrele",
+  "sort": "Sırala",
+  "refresh": "Yenile",
+  "share": "Paylaş",
+  "more": "Daha Fazla",
+
+  "_comment_auth": "═══════════════════════════════════════════════════════════════",
+  "_comment_auth_2": "AUTHENTICATION",
+  "_comment_auth_3": "═══════════════════════════════════════════════════════════════",
+
+  "login": "Giriş Yap",
+  "logout": "Çıkış Yap",
+  "signup": "Kayıt Ol",
+  "email": "E-posta",
+  "password": "Şifre",
+  "forgotPassword": "Şifremi Unuttum",
+  "rememberMe": "Beni Hatırla",
+  "loginSuccess": "Giriş başarılı!",
+  "loginError": "Giriş başarısız. Lütfen bilgilerinizi kontrol edin.",
+  "signupSuccess": "Kayıt başarılı! Hoş geldiniz!",
+  "signupError": "Kayıt başarısız. Lütfen tekrar deneyin.",
+
+  "_comment_onboarding": "═══════════════════════════════════════════════════════════════",
+  "_comment_onboarding_2": "ONBOARDING",
+  "_comment_onboarding_3": "═══════════════════════════════════════════════════════════════",
+
+  "onboardingTitle1": "Türk Mutfağına Özel",
+  "onboardingDesc1": "150+ Türk yemeği ile kalori takibi yapın. Mercimek çorbasından baklavaya kadar!",
+
+  "onboardingTitle2": "Akıllı Takip",
+  "onboardingDesc2": "AI destekli yemek tanıma ve barkod okuyucu ile hızlı ekleme.",
+
+  "onboardingTitle3": "Hedeflerinize Ulaşın",
+  "onboardingDesc3": "Kilo verme, alma veya koruma hedefleriniz için kişiselleştirilmiş plan.",
+
+  "onboardingTitle4": "Sosyal Topluluk",
+  "onboardingDesc4": "Başarılarınızı paylaşın, arkadaşlarınızı takip edin, motive olun!",
+
+  "onboardingTitle5": "Hemen Başlayın",
+  "onboardingDesc5": "Sağlıklı yaşam yolculuğunuz burada başlıyor!",
+
+  "getStarted": "Başlayalım",
+
+  "_comment_profile_setup": "═══════════════════════════════════════════════════════════════",
+  "_comment_profile_setup_2": "PROFILE SETUP WIZARD",
+  "_comment_profile_setup_3": "═══════════════════════════════════════════════════════════════",
+
+  "profileSetupTitle": "Profilinizi Oluşturalım",
+  "profileSetupGender": "Cinsiyetiniz",
+  "male": "Erkek",
+  "female": "Kadın",
+  "profileSetupAge": "Yaşınız",
+  "profileSetupHeight": "Boyunuz (cm)",
+  "profileSetupWeight": "Kilonuz (kg)",
+  "profileSetupActivity": "Aktivite Seviyeniz",
+  "activitySedentary": "Hareketsiz (Masabaşı işi)",
+  "activityLight": "Az Hareketli (Hafif egzersiz 1-3 gün/hafta)",
+  "activityModerate": "Orta (Orta egzersiz 3-5 gün/hafta)",
+  "activityVery": "Çok (Yoğun egzersiz 6-7 gün/hafta)",
+  "activityExtreme": "Ekstra (Çok yoğun egzersiz & fiziksel iş)",
+  "profileSetupGoal": "Hedefiniz",
+  "goalLose": "Kilo Vermek",
+  "goalMaintain": "Kilomu Korumak",
+  "goalGain": "Kilo Almak",
+  "profileComplete": "Profil Tamamlandı!",
+  "dailyCalorieGoal": "Günlük kalori hedefiniz: {calories} kcal",
+  "@dailyCalorieGoal": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+
+  "_comment_home": "═══════════════════════════════════════════════════════════════",
+  "_comment_home_2": "HOME SCREEN",
+  "_comment_home_3": "═══════════════════════════════════════════════════════════════",
+
+  "homeGreeting": "Merhaba, {name}!",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "homeCaloriesRemaining": "Kalan Kalori",
+  "homeCaloriesConsumed": "Tüketilen",
+  "homeCaloriesBurned": "Yakılan",
+  "homeCaloriesGoal": "Hedef",
+
+  "todaysSummary": "Bugünün Özeti",
+  "breakfast": "Kahvaltı",
+  "lunch": "Öğle Yemeği",
+  "dinner": "Akşam Yemeği",
+  "snacks": "Ara Öğün",
+
+  "addFood": "Yemek Ekle",
+  "quickAdd": "Hızlı Ekle",
+  "scanBarcode": "Barkod Tara",
+  "takePhoto": "Fotoğraf Çek",
+
+  "_comment_macros": "═══════════════════════════════════════════════════════════════",
+  "_comment_macros_2": "MACROS & NUTRITION",
+  "_comment_macros_3": "═══════════════════════════════════════════════════════════════",
+
+  "calories": "Kalori",
+  "protein": "Protein",
+  "carbs": "Karbonhidrat",
+  "fat": "Yağ",
+  "fiber": "Lif",
+  "sugar": "Şeker",
+  "sodium": "Sodyum",
+
+  "caloriesShort": "kcal",
+  "gramsShort": "g",
+  "milligramsShort": "mg",
+
+  "macrosBreakdown": "Makro Besin Dağılımı",
+  "nutritionInfo": "Besin Değerleri",
+  "perServing": "Porsiyon Başına",
+  "servingSize": "Porsiyon Boyutu",
+
+  "_comment_meals": "═══════════════════════════════════════════════════════════════",
+  "_comment_meals_2": "MEALS & FOOD LOGGING",
+  "_comment_meals_3": "═══════════════════════════════════════════════════════════════",
+
+  "mealType": "Öğün Tipi",
+  "selectMealType": "Öğün Tipi Seçin",
+  "recentFoods": "Son Yemekler",
+  "favoriteFoods": "Favoriler",
+  "frequentFoods": "Sık Kullanılanlar",
+
+  "foodAdded": "Yemek eklendi!",
+  "foodDeleted": "Yemek silindi.",
+  "foodUpdated": "Yemek güncellendi.",
+
+  "noFoodsToday": "Bugün henüz yemek eklemediniz.",
+  "noFoodsInMeal": "Bu öğünde yemek yok.",
+  "startAddingFoods": "Yemek ekleyerek başlayın!",
+
+  "searchFoods": "Yemek Ara...",
+  "searchResults": "Arama Sonuçları",
+  "noResultsFound": "Sonuç bulunamadı.",
+  "tryDifferentKeywords": "Farklı anahtar kelimeler deneyin.",
+
+  "_comment_stats": "═══════════════════════════════════════════════════════════════",
+  "_comment_stats_2": "STATISTICS & ANALYTICS",
+  "_comment_stats_3": "═══════════════════════════════════════════════════════════════",
+
+  "statistics": "İstatistikler",
+  "weeklyStats": "Haftalık İstatistikler",
+  "monthlyStats": "Aylık İstatistikler",
+  "caloriesTrend": "Kalori Trendi",
+  "weightTrend": "Kilo Trendi",
+
+  "average": "Ortalama",
+  "minimum": "Minimum",
+  "maximum": "Maksimum",
+  "total": "Toplam",
+
+  "last7Days": "Son 7 Gün",
+  "last30Days": "Son 30 Gün",
+  "thisWeek": "Bu Hafta",
+  "thisMonth": "Bu Ay",
+
+  "_comment_weight": "═══════════════════════════════════════════════════════════════",
+  "_comment_weight_2": "WEIGHT TRACKING",
+  "_comment_weight_3": "═══════════════════════════════════════════════════════════════",
+
+  "weightTracking": "Kilo Takibi",
+  "currentWeight": "Mevcut Kilo",
+  "targetWeight": "Hedef Kilo",
+  "startingWeight": "Başlangıç Kilosu",
+  "weightGoal": "Kilo Hedefi",
+  "weightProgress": "Kilo İlerlemesi",
+
+  "addWeightEntry": "Kilo Gir",
+  "editWeightEntry": "Kiloyu Düzenle",
+  "deleteWeightEntry": "Kiloyu Sil",
+
+  "weightInKg": "Kilo (kg)",
+  "date": "Tarih",
+  "notes": "Notlar",
+
+  "bmi": "BMI (Vücut Kitle İndeksi)",
+  "bmiUnderweight": "Zayıf",
+  "bmiNormal": "Normal",
+  "bmiOverweight": "Fazla Kilolu",
+  "bmiObese": "Obez",
+
+  "bodyMeasurements": "Vücut Ölçüleri",
+  "neck": "Boyun",
+  "waist": "Bel",
+  "hips": "Kalça",
+  "chest": "Göğüs",
+
+  "remaining": "Kalan: {amount} kg",
+  "@remaining": {
+    "placeholders": {
+      "amount": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+
+  "_comment_water": "═══════════════════════════════════════════════════════════════",
+  "_comment_water_2": "WATER TRACKING",
+  "_comment_water_3": "═══════════════════════════════════════════════════════════════",
+
+  "waterIntake": "Su Tüketimi",
+  "dailyWaterGoal": "Günlük Su Hedefi",
+  "glassesOfWater": "Bardak Su",
+  "addGlass": "Bardak Ekle",
+  "waterReminder": "Su Hatırlatıcısı",
+  "waterReminderSettings": "Su Hatırlatıcı Ayarları",
+  "reminderInterval": "Hatırlatma Aralığı",
+  "activeHours": "Aktif Saatler",
+  "startTime": "Başlangıç Saati",
+  "endTime": "Bitiş Saati",
+
+  "glassesCount": "{count, plural, =0{Henüz su içmediniz} =1{1 bardak} other{{count} bardak}}",
+  "@glassesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "_comment_meal_planning": "═══════════════════════════════════════════════════════════════",
+  "_comment_meal_planning_2": "MEAL PLANNING",
+  "_comment_meal_planning_3": "═══════════════════════════════════════════════════════════════",
+
+  "mealPlanning": "Öğün Planlama",
+  "weeklyPlan": "Haftalık Plan",
+  "createPlan": "Plan Oluştur",
+  "editPlan": "Planı Düzenle",
+  "deletePlan": "Planı Sil",
+  "copyToLog": "Günlüğe Kopyala",
+
+  "mealTemplates": "Öğün Şablonları",
+  "saveAsTemplate": "Şablon Olarak Kaydet",
+  "useTemplate": "Şablonu Kullan",
+
+  "planForWeek": "Haftalık Plan: {week}",
+  "@planForWeek": {
+    "placeholders": {
+      "week": {
+        "type": "String"
+      }
+    }
+  },
+
+  "noPlanActive": "Aktif plan yok.",
+  "createFirstPlan": "İlk planınızı oluşturun!",
+
+  "_comment_recipes": "═══════════════════════════════════════════════════════════════",
+  "_comment_recipes_2": "RECIPES",
+  "_comment_recipes_3": "═══════════════════════════════════════════════════════════════",
+
+  "recipes": "Tarifler",
+  "allRecipes": "Tüm Tarifler",
+  "savedRecipes": "Kayıtlı Tarifler",
+  "popularRecipes": "Popüler Tarifler",
+
+  "recipeDetail": "Tarif Detayı",
+  "ingredients": "Malzemeler",
+  "instructions": "Talimatlar",
+  "cookingMode": "Pişirme Modu",
+
+  "prepTime": "Hazırlık",
+  "cookTime": "Pişirme",
+  "totalTime": "Toplam",
+  "servings": "Porsiyon",
+  "difficulty": "Zorluk",
+
+  "difficultyEasy": "Kolay",
+  "difficultyMedium": "Orta",
+  "difficultyHard": "Zor",
+
+  "minutes": "{count} dk",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "servingsCount": "{count} kişilik",
+  "@servingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "categoryMainDish": "Ana Yemek",
+  "categorySoup": "Çorba",
+  "categoryDessert": "Tatlı",
+  "categorySalad": "Salata",
+  "categoryBreakfast": "Kahvaltılık",
+  "categoryAppetizer": "Meze",
+  "categoryBeverage": "İçecek",
+  "categorySnack": "Atıştırmalık",
+
+  "saveRecipe": "Tarifi Kaydet",
+  "unsaveRecipe": "Kaydı Kaldır",
+  "startCooking": "Pişirmeye Başla",
+
+  "step": "Adım {number}",
+  "@step": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+
+  "_comment_social": "═══════════════════════════════════════════════════════════════",
+  "_comment_social_2": "SOCIAL FEATURES",
+  "_comment_social_3": "═══════════════════════════════════════════════════════════════",
+
+  "social": "Sosyal",
+  "feed": "Akış",
+  "following": "Takip Edilenler",
+  "followers": "Takipçiler",
+  "followingCount": "{count} takip edilen",
+  "@followingCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "followersCount": "{count} takipçi",
+  "@followersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "follow": "Takip Et",
+  "unfollow": "Takibi Bırak",
+  "followed": "Takip Ediliyor",
+
+  "createPost": "Gönderi Oluştur",
+  "editPost": "Gönderiyi Düzenle",
+  "deletePost": "Gönderiyi Sil",
+  "sharePost": "Gönderiyi Paylaş",
+
+  "whatsOnYourMind": "Aklınızdan ne geçiyor?",
+  "writeCaption": "Açıklama yaz...",
+  "addPhotos": "Fotoğraf Ekle",
+
+  "likes": "Beğeni",
+  "comments": "Yorum",
+  "liked": "Beğenildi",
+  "like": "Beğen",
+  "unlike": "Beğeniyi Geri Al",
+
+  "addComment": "Yorum Ekle",
+  "writeComment": "Yorum yaz...",
+  "deleteComment": "Yorumu Sil",
+  "editComment": "Yorumu Düzenle",
+
+  "viewAllComments": "Tüm yorumları gör ({count})",
+  "@viewAllComments": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "noPostsYet": "Henüz gönderi yok.",
+  "startSharing": "İlk gönderinizi paylaşın!",
+
+  "leaderboard": "Lider Tablosu",
+  "streak": "Seri",
+  "posts": "Gönderiler",
+  "topUsers": "En İyi Kullanıcılar",
+
+  "_comment_profile": "═══════════════════════════════════════════════════════════════",
+  "_comment_profile_2": "PROFILE",
+  "_comment_profile_3": "═══════════════════════════════════════════════════════════════",
+
+  "profile": "Profil",
+  "myProfile": "Profilim",
+  "editProfile": "Profili Düzenle",
+  "viewProfile": "Profili Görüntüle",
+
+  "username": "Kullanıcı Adı",
+  "fullName": "Ad Soyad",
+  "bio": "Biyografi",
+  "avatar": "Profil Fotoğrafı",
+
+  "accountSettings": "Hesap Ayarları",
+  "privacySettings": "Gizlilik Ayarları",
+  "notificationSettings": "Bildirim Ayarları",
+
+  "publicProfile": "Profil Herkese Açık",
+  "privateProfile": "Profil Gizli",
+
+  "dayStreak": "{count} günlük seri",
+  "@dayStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "_comment_achievements": "═══════════════════════════════════════════════════════════════",
+  "_comment_achievements_2": "ACHIEVEMENTS & GAMIFICATION",
+  "_comment_achievements_3": "═══════════════════════════════════════════════════════════════",
+
+  "achievements": "Başarımlar",
+  "unlocked": "Kilidi Açıldı",
+  "locked": "Kilitli",
+  "progress": "İlerleme",
+
+  "achievementUnlocked": "Başarım Kazanıldı!",
+  "congratulations": "Tebrikler!",
+
+  "rarityCommon": "Yaygın",
+  "rarityRare": "Nadir",
+  "rarityEpic": "Epik",
+  "rarityLegendary": "Efsanevi",
+
+  "_comment_premium": "═══════════════════════════════════════════════════════════════",
+  "_comment_premium_2": "PREMIUM & SUBSCRIPTION",
+  "_comment_premium_3": "═══════════════════════════════════════════════════════════════",
+
+  "premium": "Premium",
+  "upgradeToPremium": "Premium'a Yükselt",
+  "subscription": "Abonelik",
+  "freeTrial": "Ücretsiz Deneme",
+  "subscribed": "Abone",
+
+  "premiumFeatures": "Premium Özellikler",
+  "unlockAllRecipes": "Tüm tariflerin kilidi açık",
+  "advancedAnalytics": "Gelişmiş analizler",
+  "cookingMode": "Pişirme modu",
+  "adFree": "Reklamsız deneyim",
+  "prioritySupport": "Öncelikli destek",
+
+  "monthly": "Aylık",
+  "yearly": "Yıllık",
+  "save": "Tasarruf edin",
+
+  "startFreeTrial": "7 Günlük Ücretsiz Deneme Başlat",
+  "subscribNow": "Şimdi Abone Ol",
+  "restorePurchase": "Satın Alımı Geri Yükle",
+
+  "subscriptionTierFree": "Ücretsiz",
+  "subscriptionTierPremium": "Premium",
+  "subscriptionTierPremiumPlus": "Premium Plus",
+
+  "_comment_settings": "═══════════════════════════════════════════════════════════════",
+  "_comment_settings_2": "SETTINGS",
+  "_comment_settings_3": "═══════════════════════════════════════════════════════════════",
+
+  "settings": "Ayarlar",
+  "general": "Genel",
+  "language": "Dil",
+  "theme": "Tema",
+  "darkMode": "Karanlık Mod",
+  "lightMode": "Aydınlık Mod",
+
+  "notifications": "Bildirimler",
+  "enableNotifications": "Bildirimleri Etkinleştir",
+  "mealReminders": "Öğün Hatırlatıcıları",
+  "waterReminders": "Su Hatırlatıcıları",
+  "socialNotifications": "Sosyal Bildirimler",
+
+  "privacy": "Gizlilik",
+  "termsOfService": "Kullanım Koşulları",
+  "privacyPolicy": "Gizlilik Politikası",
+  "aboutApp": "Uygulama Hakkında",
+  "version": "Sürüm",
+  "support": "Destek",
+  "contactUs": "Bize Ulaşın",
+  "rateApp": "Uygulamayı Değerlendir",
+
+  "_comment_ai": "═══════════════════════════════════════════════════════════════",
+  "_comment_ai_2": "AI FEATURES",
+  "_comment_ai_3": "═══════════════════════════════════════════════════════════════",
+
+  "aiFoodRecognition": "AI Yemek Tanıma",
+  "scanFood": "Yemeği Tara",
+  "analyzing": "Analiz ediliyor...",
+  "recognizedFoods": "Tanınan Yemekler",
+  "confidence": "Güven",
+  "aiAnalysis": "AI Analizi",
+
+  "betaFeature": "Beta Özellik",
+  "betaNotice": "Bu özellik beta aşamasındadır ve sürekli geliştirilmektedir.",
+
+  "_comment_errors": "═══════════════════════════════════════════════════════════════",
+  "_comment_errors_2": "ERROR MESSAGES",
+  "_comment_errors_3": "═══════════════════════════════════════════════════════════════",
+
+  "errorOccurred": "Bir hata oluştu",
+  "errorTryAgain": "Lütfen tekrar deneyin",
+  "errorNoInternet": "İnternet bağlantısı yok",
+  "errorLoadingData": "Veri yüklenirken hata oluştu",
+  "errorSavingData": "Veri kaydedilirken hata oluştu",
+  "errorDeletingData": "Veri silinirken hata oluştu",
+
+  "networkError": "Ağ hatası",
+  "serverError": "Sunucu hatası",
+  "validationError": "Doğrulama hatası",
+
+  "_comment_validation": "═══════════════════════════════════════════════════════════════",
+  "_comment_validation_2": "VALIDATION MESSAGES",
+  "_comment_validation_3": "═══════════════════════════════════════════════════════════════",
+
+  "fieldRequired": "Bu alan zorunludur",
+  "invalidEmail": "Geçersiz e-posta adresi",
+  "invalidPassword": "Şifre en az 6 karakter olmalıdır",
+  "passwordsDoNotMatch": "Şifreler eşleşmiyor",
+  "invalidNumber": "Geçersiz sayı",
+  "valueTooLow": "Değer çok düşük",
+  "valueTooHigh": "Değer çok yüksek",
+
+  "_comment_empty_states": "═══════════════════════════════════════════════════════════════",
+  "_comment_empty_states_2": "EMPTY STATES",
+  "_comment_empty_states_3": "═══════════════════════════════════════════════════════════════",
+
+  "noDataAvailable": "Veri mevcut değil",
+  "noResultsTitle": "Sonuç Bulunamadı",
+  "noResultsMessage": "Farklı anahtar kelimeler deneyebilirsiniz.",
+
+  "emptyFoodLog": "Henüz yemek eklemediniz",
+  "emptyRecipes": "Henüz kaydedilmiş tarif yok",
+  "emptyNotifications": "Bildiriminiz yok",
+  "emptyFollowers": "Henüz takipçiniz yok",
+  "emptyFollowing": "Henüz kimseyi takip etmiyorsunuz",
+
+  "_comment_dialogs": "═══════════════════════════════════════════════════════════════",
+  "_comment_dialogs_2": "DIALOG MESSAGES",
+  "_comment_dialogs_3": "═══════════════════════════════════════════════════════════════",
+
+  "confirmDelete": "Silmek istediğinize emin misiniz?",
+  "confirmLogout": "Çıkış yapmak istediğinize emin misiniz?",
+  "confirmDeletePost": "Bu gönderiyi silmek istediğinize emin misiniz?",
+  "confirmDeleteComment": "Bu yorumu silmek istediğinize emin misiniz?",
+  "areYouSure": "Emin misiniz?",
+  "cannotBeUndone": "Bu işlem geri alınamaz.",
+
+  "_comment_time": "═══════════════════════════════════════════════════════════════",
+  "_comment_time_2": "TIME & DATES",
+  "_comment_time_3": "═══════════════════════════════════════════════════════════════",
+
+  "today": "Bugün",
+  "yesterday": "Dün",
+  "tomorrow": "Yarın",
+  "thisWeekLabel": "Bu Hafta",
+  "thisMonthLabel": "Bu Ay",
+
+  "monday": "Pazartesi",
+  "tuesday": "Salı",
+  "wednesday": "Çarşamba",
+  "thursday": "Perşembe",
+  "friday": "Cuma",
+  "saturday": "Cumartesi",
+  "sunday": "Pazar",
+
+  "january": "Ocak",
+  "february": "Şubat",
+  "march": "Mart",
+  "april": "Nisan",
+  "may": "Mayıs",
+  "june": "Haziran",
+  "july": "Temmuz",
+  "august": "Ağustos",
+  "september": "Eylül",
+  "october": "Ekim",
+  "november": "Kasım",
+  "december": "Aralık"
+}

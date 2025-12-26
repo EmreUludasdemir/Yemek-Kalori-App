@@ -1,0 +1,532 @@
+{
+  "@@locale": "en",
+  "@@context": "TurkCalorie - Turkish Calorie Tracking App",
+
+  "_comment_app": "═══════════════════════════════════════════════════════════════",
+  "_comment_app_2": "APP GENERAL",
+  "_comment_app_3": "═══════════════════════════════════════════════════════════════",
+
+  "appTitle": "TurkCalorie",
+  "appTagline": "Calorie Tracking for Turkish Cuisine",
+
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "cancel": "Cancel",
+  "ok": "OK",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "close": "Close",
+  "back": "Back",
+  "next": "Next",
+  "done": "Done",
+  "skip": "Skip",
+  "retry": "Retry",
+  "confirm": "Confirm",
+  "yes": "Yes",
+  "no": "No",
+  "search": "Search",
+  "filter": "Filter",
+  "sort": "Sort",
+  "refresh": "Refresh",
+  "share": "Share",
+  "more": "More",
+
+  "_comment_auth": "═══════════════════════════════════════════════════════════════",
+  "_comment_auth_2": "AUTHENTICATION",
+  "_comment_auth_3": "═══════════════════════════════════════════════════════════════",
+
+  "login": "Login",
+  "logout": "Logout",
+  "signup": "Sign Up",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password",
+  "rememberMe": "Remember Me",
+  "loginSuccess": "Login successful!",
+  "loginError": "Login failed. Please check your credentials.",
+  "signupSuccess": "Sign up successful! Welcome!",
+  "signupError": "Sign up failed. Please try again.",
+
+  "_comment_onboarding": "═══════════════════════════════════════════════════════════════",
+  "_comment_onboarding_2": "ONBOARDING",
+  "_comment_onboarding_3": "═══════════════════════════════════════════════════════════════",
+
+  "onboardingTitle1": "Made for Turkish Cuisine",
+  "onboardingDesc1": "Track calories with 150+ Turkish foods. From lentil soup to baklava!",
+
+  "onboardingTitle2": "Smart Tracking",
+  "onboardingDesc2": "AI-powered food recognition and barcode scanner for quick logging.",
+
+  "onboardingTitle3": "Reach Your Goals",
+  "onboardingDesc3": "Personalized plan for losing, gaining, or maintaining weight.",
+
+  "onboardingTitle4": "Social Community",
+  "onboardingDesc4": "Share achievements, follow friends, stay motivated!",
+
+  "onboardingTitle5": "Get Started Now",
+  "onboardingDesc5": "Your healthy lifestyle journey starts here!",
+
+  "getStarted": "Get Started",
+
+  "_comment_profile_setup": "═══════════════════════════════════════════════════════════════",
+  "_comment_profile_setup_2": "PROFILE SETUP WIZARD",
+  "_comment_profile_setup_3": "═══════════════════════════════════════════════════════════════",
+
+  "profileSetupTitle": "Let's Set Up Your Profile",
+  "profileSetupGender": "Your Gender",
+  "male": "Male",
+  "female": "Female",
+  "profileSetupAge": "Your Age",
+  "profileSetupHeight": "Your Height (cm)",
+  "profileSetupWeight": "Your Weight (kg)",
+  "profileSetupActivity": "Activity Level",
+  "activitySedentary": "Sedentary (Desk job)",
+  "activityLight": "Lightly Active (Light exercise 1-3 days/week)",
+  "activityModerate": "Moderately Active (Moderate exercise 3-5 days/week)",
+  "activityVery": "Very Active (Hard exercise 6-7 days/week)",
+  "activityExtreme": "Extra Active (Very hard exercise & physical job)",
+  "profileSetupGoal": "Your Goal",
+  "goalLose": "Lose Weight",
+  "goalMaintain": "Maintain Weight",
+  "goalGain": "Gain Weight",
+  "profileComplete": "Profile Complete!",
+  "dailyCalorieGoal": "Your daily calorie goal: {calories} kcal",
+
+  "_comment_home": "═══════════════════════════════════════════════════════════════",
+  "_comment_home_2": "HOME SCREEN",
+  "_comment_home_3": "═══════════════════════════════════════════════════════════════",
+
+  "homeGreeting": "Hello, {name}!",
+  "homeCaloriesRemaining": "Calories Remaining",
+  "homeCaloriesConsumed": "Consumed",
+  "homeCaloriesBurned": "Burned",
+  "homeCaloriesGoal": "Goal",
+
+  "todaysSummary": "Today's Summary",
+  "breakfast": "Breakfast",
+  "lunch": "Lunch",
+  "dinner": "Dinner",
+  "snacks": "Snacks",
+
+  "addFood": "Add Food",
+  "quickAdd": "Quick Add",
+  "scanBarcode": "Scan Barcode",
+  "takePhoto": "Take Photo",
+
+  "_comment_macros": "═══════════════════════════════════════════════════════════════",
+  "_comment_macros_2": "MACROS & NUTRITION",
+  "_comment_macros_3": "═══════════════════════════════════════════════════════════════",
+
+  "calories": "Calories",
+  "protein": "Protein",
+  "carbs": "Carbs",
+  "fat": "Fat",
+  "fiber": "Fiber",
+  "sugar": "Sugar",
+  "sodium": "Sodium",
+
+  "caloriesShort": "kcal",
+  "gramsShort": "g",
+  "milligramsShort": "mg",
+
+  "macrosBreakdown": "Macros Breakdown",
+  "nutritionInfo": "Nutrition Information",
+  "perServing": "Per Serving",
+  "servingSize": "Serving Size",
+
+  "_comment_meals": "═══════════════════════════════════════════════════════════════",
+  "_comment_meals_2": "MEALS & FOOD LOGGING",
+  "_comment_meals_3": "═══════════════════════════════════════════════════════════════",
+
+  "mealType": "Meal Type",
+  "selectMealType": "Select Meal Type",
+  "recentFoods": "Recent Foods",
+  "favoriteFoods": "Favorites",
+  "frequentFoods": "Frequent Foods",
+
+  "foodAdded": "Food added!",
+  "foodDeleted": "Food deleted.",
+  "foodUpdated": "Food updated.",
+
+  "noFoodsToday": "No foods added today.",
+  "noFoodsInMeal": "No foods in this meal.",
+  "startAddingFoods": "Start by adding foods!",
+
+  "searchFoods": "Search Foods...",
+  "searchResults": "Search Results",
+  "noResultsFound": "No results found.",
+  "tryDifferentKeywords": "Try different keywords.",
+
+  "_comment_stats": "═══════════════════════════════════════════════════════════════",
+  "_comment_stats_2": "STATISTICS & ANALYTICS",
+  "_comment_stats_3": "═══════════════════════════════════════════════════════════════",
+
+  "statistics": "Statistics",
+  "weeklyStats": "Weekly Statistics",
+  "monthlyStats": "Monthly Statistics",
+  "caloriesTrend": "Calories Trend",
+  "weightTrend": "Weight Trend",
+
+  "average": "Average",
+  "minimum": "Minimum",
+  "maximum": "Maximum",
+  "total": "Total",
+
+  "last7Days": "Last 7 Days",
+  "last30Days": "Last 30 Days",
+  "thisWeek": "This Week",
+  "thisMonth": "This Month",
+
+  "_comment_weight": "═══════════════════════════════════════════════════════════════",
+  "_comment_weight_2": "WEIGHT TRACKING",
+  "_comment_weight_3": "═══════════════════════════════════════════════════════════════",
+
+  "weightTracking": "Weight Tracking",
+  "currentWeight": "Current Weight",
+  "targetWeight": "Target Weight",
+  "startingWeight": "Starting Weight",
+  "weightGoal": "Weight Goal",
+  "weightProgress": "Weight Progress",
+
+  "addWeightEntry": "Add Weight",
+  "editWeightEntry": "Edit Weight",
+  "deleteWeightEntry": "Delete Weight",
+
+  "weightInKg": "Weight (kg)",
+  "date": "Date",
+  "notes": "Notes",
+
+  "bmi": "BMI (Body Mass Index)",
+  "bmiUnderweight": "Underweight",
+  "bmiNormal": "Normal",
+  "bmiOverweight": "Overweight",
+  "bmiObese": "Obese",
+
+  "bodyMeasurements": "Body Measurements",
+  "neck": "Neck",
+  "waist": "Waist",
+  "hips": "Hips",
+  "chest": "Chest",
+
+  "remaining": "Remaining: {amount} kg",
+
+  "_comment_water": "═══════════════════════════════════════════════════════════════",
+  "_comment_water_2": "WATER TRACKING",
+  "_comment_water_3": "═══════════════════════════════════════════════════════════════",
+
+  "waterIntake": "Water Intake",
+  "dailyWaterGoal": "Daily Water Goal",
+  "glassesOfWater": "Glasses of Water",
+  "addGlass": "Add Glass",
+  "waterReminder": "Water Reminder",
+  "waterReminderSettings": "Water Reminder Settings",
+  "reminderInterval": "Reminder Interval",
+  "activeHours": "Active Hours",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+
+  "glassesCount": "{count, plural, =0{No water yet} =1{1 glass} other{{count} glasses}}",
+
+  "_comment_meal_planning": "═══════════════════════════════════════════════════════════════",
+  "_comment_meal_planning_2": "MEAL PLANNING",
+  "_comment_meal_planning_3": "═══════════════════════════════════════════════════════════════",
+
+  "mealPlanning": "Meal Planning",
+  "weeklyPlan": "Weekly Plan",
+  "createPlan": "Create Plan",
+  "editPlan": "Edit Plan",
+  "deletePlan": "Delete Plan",
+  "copyToLog": "Copy to Log",
+
+  "mealTemplates": "Meal Templates",
+  "saveAsTemplate": "Save as Template",
+  "useTemplate": "Use Template",
+
+  "planForWeek": "Plan for Week: {week}",
+
+  "noPlanActive": "No active plan.",
+  "createFirstPlan": "Create your first plan!",
+
+  "_comment_recipes": "═══════════════════════════════════════════════════════════════",
+  "_comment_recipes_2": "RECIPES",
+  "_comment_recipes_3": "═══════════════════════════════════════════════════════════════",
+
+  "recipes": "Recipes",
+  "allRecipes": "All Recipes",
+  "savedRecipes": "Saved Recipes",
+  "popularRecipes": "Popular Recipes",
+
+  "recipeDetail": "Recipe Details",
+  "ingredients": "Ingredients",
+  "instructions": "Instructions",
+  "cookingMode": "Cooking Mode",
+
+  "prepTime": "Prep",
+  "cookTime": "Cook",
+  "totalTime": "Total",
+  "servings": "Servings",
+  "difficulty": "Difficulty",
+
+  "difficultyEasy": "Easy",
+  "difficultyMedium": "Medium",
+  "difficultyHard": "Hard",
+
+  "minutes": "{count} min",
+
+  "servingsCount": "Serves {count}",
+
+  "categoryMainDish": "Main Dish",
+  "categorySoup": "Soup",
+  "categoryDessert": "Dessert",
+  "categorySalad": "Salad",
+  "categoryBreakfast": "Breakfast",
+  "categoryAppetizer": "Appetizer",
+  "categoryBeverage": "Beverage",
+  "categorySnack": "Snack",
+
+  "saveRecipe": "Save Recipe",
+  "unsaveRecipe": "Unsave Recipe",
+  "startCooking": "Start Cooking",
+
+  "step": "Step {number}",
+
+  "_comment_social": "═══════════════════════════════════════════════════════════════",
+  "_comment_social_2": "SOCIAL FEATURES",
+  "_comment_social_3": "═══════════════════════════════════════════════════════════════",
+
+  "social": "Social",
+  "feed": "Feed",
+  "following": "Following",
+  "followers": "Followers",
+  "followingCount": "{count} following",
+
+  "followersCount": "{count} followers",
+
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "followed": "Following",
+
+  "createPost": "Create Post",
+  "editPost": "Edit Post",
+  "deletePost": "Delete Post",
+  "sharePost": "Share Post",
+
+  "whatsOnYourMind": "What's on your mind?",
+  "writeCaption": "Write a caption...",
+  "addPhotos": "Add Photos",
+
+  "likes": "Likes",
+  "comments": "Comments",
+  "liked": "Liked",
+  "like": "Like",
+  "unlike": "Unlike",
+
+  "addComment": "Add Comment",
+  "writeComment": "Write a comment...",
+  "deleteComment": "Delete Comment",
+  "editComment": "Edit Comment",
+
+  "viewAllComments": "View all {count} comments",
+
+  "noPostsYet": "No posts yet.",
+  "startSharing": "Share your first post!",
+
+  "leaderboard": "Leaderboard",
+  "streak": "Streak",
+  "posts": "Posts",
+  "topUsers": "Top Users",
+
+  "_comment_profile": "═══════════════════════════════════════════════════════════════",
+  "_comment_profile_2": "PROFILE",
+  "_comment_profile_3": "═══════════════════════════════════════════════════════════════",
+
+  "profile": "Profile",
+  "myProfile": "My Profile",
+  "editProfile": "Edit Profile",
+  "viewProfile": "View Profile",
+
+  "username": "Username",
+  "fullName": "Full Name",
+  "bio": "Bio",
+  "avatar": "Profile Picture",
+
+  "accountSettings": "Account Settings",
+  "privacySettings": "Privacy Settings",
+  "notificationSettings": "Notification Settings",
+
+  "publicProfile": "Public Profile",
+  "privateProfile": "Private Profile",
+
+  "dayStreak": "{count} day streak",
+
+  "_comment_achievements": "═══════════════════════════════════════════════════════════════",
+  "_comment_achievements_2": "ACHIEVEMENTS & GAMIFICATION",
+  "_comment_achievements_3": "═══════════════════════════════════════════════════════════════",
+
+  "achievements": "Achievements",
+  "unlocked": "Unlocked",
+  "locked": "Locked",
+  "progress": "Progress",
+
+  "achievementUnlocked": "Achievement Unlocked!",
+  "congratulations": "Congratulations!",
+
+  "rarityCommon": "Common",
+  "rarityRare": "Rare",
+  "rarityEpic": "Epic",
+  "rarityLegendary": "Legendary",
+
+  "_comment_premium": "═══════════════════════════════════════════════════════════════",
+  "_comment_premium_2": "PREMIUM & SUBSCRIPTION",
+  "_comment_premium_3": "═══════════════════════════════════════════════════════════════",
+
+  "premium": "Premium",
+  "upgradeToPremium": "Upgrade to Premium",
+  "subscription": "Subscription",
+  "freeTrial": "Free Trial",
+  "subscribed": "Subscribed",
+
+  "premiumFeatures": "Premium Features",
+  "unlockAllRecipes": "Unlock all recipes",
+  "advancedAnalytics": "Advanced analytics",
+  "cookingMode": "Cooking mode",
+  "adFree": "Ad-free experience",
+  "prioritySupport": "Priority support",
+
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "save": "Save",
+
+  "startFreeTrial": "Start 7-Day Free Trial",
+  "subscribNow": "Subscribe Now",
+  "restorePurchase": "Restore Purchase",
+
+  "subscriptionTierFree": "Free",
+  "subscriptionTierPremium": "Premium",
+  "subscriptionTierPremiumPlus": "Premium Plus",
+
+  "_comment_settings": "═══════════════════════════════════════════════════════════════",
+  "_comment_settings_2": "SETTINGS",
+  "_comment_settings_3": "═══════════════════════════════════════════════════════════════",
+
+  "settings": "Settings",
+  "general": "General",
+  "language": "Language",
+  "theme": "Theme",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+
+  "notifications": "Notifications",
+  "enableNotifications": "Enable Notifications",
+  "mealReminders": "Meal Reminders",
+  "waterReminders": "Water Reminders",
+  "socialNotifications": "Social Notifications",
+
+  "privacy": "Privacy",
+  "termsOfService": "Terms of Service",
+  "privacyPolicy": "Privacy Policy",
+  "aboutApp": "About App",
+  "version": "Version",
+  "support": "Support",
+  "contactUs": "Contact Us",
+  "rateApp": "Rate App",
+
+  "_comment_ai": "═══════════════════════════════════════════════════════════════",
+  "_comment_ai_2": "AI FEATURES",
+  "_comment_ai_3": "═══════════════════════════════════════════════════════════════",
+
+  "aiFoodRecognition": "AI Food Recognition",
+  "scanFood": "Scan Food",
+  "analyzing": "Analyzing...",
+  "recognizedFoods": "Recognized Foods",
+  "confidence": "Confidence",
+  "aiAnalysis": "AI Analysis",
+
+  "betaFeature": "Beta Feature",
+  "betaNotice": "This feature is in beta and is continuously being improved.",
+
+  "_comment_errors": "═══════════════════════════════════════════════════════════════",
+  "_comment_errors_2": "ERROR MESSAGES",
+  "_comment_errors_3": "═══════════════════════════════════════════════════════════════",
+
+  "errorOccurred": "An error occurred",
+  "errorTryAgain": "Please try again",
+  "errorNoInternet": "No internet connection",
+  "errorLoadingData": "Error loading data",
+  "errorSavingData": "Error saving data",
+  "errorDeletingData": "Error deleting data",
+
+  "networkError": "Network error",
+  "serverError": "Server error",
+  "validationError": "Validation error",
+
+  "_comment_validation": "═══════════════════════════════════════════════════════════════",
+  "_comment_validation_2": "VALIDATION MESSAGES",
+  "_comment_validation_3": "═══════════════════════════════════════════════════════════════",
+
+  "fieldRequired": "This field is required",
+  "invalidEmail": "Invalid email address",
+  "invalidPassword": "Password must be at least 6 characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "invalidNumber": "Invalid number",
+  "valueTooLow": "Value too low",
+  "valueTooHigh": "Value too high",
+
+  "_comment_empty_states": "═══════════════════════════════════════════════════════════════",
+  "_comment_empty_states_2": "EMPTY STATES",
+  "_comment_empty_states_3": "═══════════════════════════════════════════════════════════════",
+
+  "noDataAvailable": "No data available",
+  "noResultsTitle": "No Results Found",
+  "noResultsMessage": "Try different keywords.",
+
+  "emptyFoodLog": "No foods added yet",
+  "emptyRecipes": "No saved recipes yet",
+  "emptyNotifications": "No notifications",
+  "emptyFollowers": "No followers yet",
+  "emptyFollowing": "Not following anyone yet",
+
+  "_comment_dialogs": "═══════════════════════════════════════════════════════════════",
+  "_comment_dialogs_2": "DIALOG MESSAGES",
+  "_comment_dialogs_3": "═══════════════════════════════════════════════════════════════",
+
+  "confirmDelete": "Are you sure you want to delete?",
+  "confirmLogout": "Are you sure you want to logout?",
+  "confirmDeletePost": "Are you sure you want to delete this post?",
+  "confirmDeleteComment": "Are you sure you want to delete this comment?",
+  "areYouSure": "Are you sure?",
+  "cannotBeUndone": "This action cannot be undone.",
+
+  "_comment_time": "═══════════════════════════════════════════════════════════════",
+  "_comment_time_2": "TIME & DATES",
+  "_comment_time_3": "═══════════════════════════════════════════════════════════════",
+
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "tomorrow": "Tomorrow",
+  "thisWeekLabel": "This Week",
+  "thisMonthLabel": "This Month",
+
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December"
+}
