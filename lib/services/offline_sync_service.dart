@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../config/supabase_config.dart';
 import 'connectivity_service.dart';
+import 'performance_service.dart';
 
 /// Offline sync service for local-first architecture
 /// Stores data locally and syncs when online
@@ -101,12 +102,18 @@ class OfflineSyncService {
     _isSyncing = true;
     print('🔄 Starting sync...');
 
+    // Start performance tracking
+    await PerformanceService.startOfflineSyncTrace();
+
     try {
       final operations = _offlineQueue.values
           .where((op) => op['status'] == 'pending')
           .toList();
 
       print('📦 Syncing ${operations.length} operations');
+
+      int syncedCount = 0;
+      int failedCount = 0;
 
       for (var i = 0; i < operations.length; i++) {
         final op = operations[i];
@@ -120,8 +127,10 @@ class OfflineSyncService {
           );
           await _offlineQueue.put(key, {...op, 'status': 'completed'});
 
+          syncedCount++;
           print('✅ Synced operation ${i + 1}/${operations.length}');
         } catch (e) {
+          failedCount++;
           print('❌ Failed to sync operation: $e');
           // Mark as failed
           final key = _offlineQueue.keys.firstWhere(
@@ -138,9 +147,21 @@ class OfflineSyncService {
       // Clean up completed operations
       await clearCompleted();
 
+      // Stop performance tracking with metrics
+      await PerformanceService.stopOfflineSyncTrace(
+        operationsSynced: syncedCount,
+        operationsFailed: failedCount,
+      );
+
       print('✅ Sync completed');
     } catch (e) {
       print('❌ Sync error: $e');
+
+      // Stop performance tracking even on error
+      await PerformanceService.stopOfflineSyncTrace(
+        operationsSynced: 0,
+        operationsFailed: 1,
+      );
     } finally {
       _isSyncing = false;
     }

@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'app.dart';
 import 'config/supabase_config.dart';
 import 'config/firebase_config.dart';
+import 'services/performance_service.dart';
+import 'services/crash_reporting_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +26,12 @@ void main() async {
   await Firebase.initializeApp(
     options: FirebaseConfig.currentPlatform,
   );
+
+  // Initialize Firebase Crashlytics
+  await CrashReportingService.initialize();
+
+  // Initialize Firebase Performance Monitoring
+  await PerformanceService.initialize();
 
   runApp(
     const ProviderScope(
