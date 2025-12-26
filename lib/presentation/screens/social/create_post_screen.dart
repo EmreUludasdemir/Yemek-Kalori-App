@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../config/supabase_config.dart';
 import '../../../services/social_service.dart';
+import '../../../services/image_picker_service.dart';
+import '../../../services/analytics_service.dart';
 
 class CreatePostScreen extends ConsumerStatefulWidget {
   final String? foodLogId; // Optional: link to a food log
@@ -23,7 +26,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   late TextEditingController _contentController;
   bool _isPublic = true;
   bool _isPosting = false;
-  String? _selectedImagePath;
+  File? _selectedImage;
 
   final int _maxLength = 2000;
 
@@ -40,18 +43,21 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   }
 
   Future<void> _pickImage() async {
-    // TODO: Implement image picker
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Fotoğraf ekleme yakında gelecek'),
-      ),
+    final image = await ImagePickerService.showImageSourcePicker(
+      context: context,
+      enableCrop: false,
+      quality: 85,
     );
+
+    if (image != null) {
+      setState(() => _selectedImage = image);
+    }
   }
 
   Future<void> _createPost() async {
     final content = _contentController.text.trim();
 
-    if (content.isEmpty && _selectedImagePath == null) {
+    if (content.isEmpty && _selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Gönderi içeriği veya fotoğraf ekleyin'),
@@ -77,10 +83,10 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
     try {
       // Upload image if selected
       String? imageUrl;
-      if (_selectedImagePath != null) {
+      if (_selectedImage != null) {
         imageUrl = await SocialService.uploadPostImage(
           userId: userId,
-          filePath: _selectedImagePath!,
+          filePath: _selectedImage!.path,
         );
       }
 
@@ -98,6 +104,14 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
       if (!mounted) return;
 
       if (post != null) {
+        // Log analytics
+        await AnalyticsService.logPostCreated(
+          hasImage: imageUrl != null,
+          contentLength: content.length,
+        );
+
+        if (!mounted) return;
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Gönderi paylaşıldı'),
@@ -174,13 +188,13 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                   const SizedBox(height: 16),
 
                   // Image Preview (if selected)
-                  if (_selectedImagePath != null)
+                  if (_selectedImage != null)
                     Stack(
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            _selectedImagePath!,
+                          child: Image.file(
+                            _selectedImage!,
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,
@@ -197,7 +211,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                                   size: 16, color: Colors.white),
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                setState(() => _selectedImagePath = null);
+                                setState(() => _selectedImage = null);
                               },
                             ),
                           ),

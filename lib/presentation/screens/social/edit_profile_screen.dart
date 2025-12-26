@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/user_model.dart';
 import '../../../services/social_service.dart';
+import '../../../services/image_picker_service.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserProfile user;
@@ -24,6 +26,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late bool _isPublic;
 
   bool _isSaving = false;
+  File? _newAvatar;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -48,6 +51,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     setState(() => _isSaving = true);
 
+    // Upload new avatar if selected
+    String? avatarUrl;
+    if (_newAvatar != null) {
+      avatarUrl = await SocialService.uploadAvatar(
+        userId: widget.user.id,
+        filePath: _newAvatar!.path,
+      );
+    }
+
     final success = await SocialService.updateUserProfile(
       userId: widget.user.id,
       username: _usernameController.text.trim(),
@@ -57,6 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       bio: _bioController.text.trim().isEmpty
           ? null
           : _bioController.text.trim(),
+      avatarUrl: avatarUrl,
       isPublic: _isPublic,
     );
 
@@ -83,12 +96,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _changeAvatar() async {
-    // TODO: Implement image picker and upload
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Fotoğraf değiştirme yakında eklenecek'),
-      ),
-    );
+    final image = await ImagePickerService.pickAvatar(fromCamera: false);
+
+    if (image != null) {
+      setState(() => _newAvatar = image);
+    }
   }
 
   @override
@@ -126,10 +138,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: widget.user.avatarUrl != null
-                        ? CachedNetworkImageProvider(widget.user.avatarUrl!)
-                        : null,
-                    child: widget.user.avatarUrl == null
+                    backgroundImage: _newAvatar != null
+                        ? FileImage(_newAvatar!)
+                        : widget.user.avatarUrl != null
+                            ? CachedNetworkImageProvider(widget.user.avatarUrl!)
+                            : null,
+                    child: _newAvatar == null && widget.user.avatarUrl == null
                         ? Text(
                             widget.user.username[0].toUpperCase(),
                             style: const TextStyle(
