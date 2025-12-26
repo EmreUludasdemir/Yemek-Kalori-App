@@ -24,6 +24,7 @@ dependencies:
   firebase_messaging: ^14.7.0
   firebase_analytics: ^10.7.0
   firebase_performance: ^0.9.3
+  firebase_crashlytics: ^3.4.0
 
   # UI Components
   fl_chart: ^0.65.0
