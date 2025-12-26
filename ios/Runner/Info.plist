@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>TürkKalori</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.turkkalori.app</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>TürkKalori</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- PERMISSIONS - App Store Required -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<!-- Camera Permission -->
+	<key>NSCameraUsageDescription</key>
+	<string>TürkKalori, yemek fotoğrafı çekmek ve AI ile yemek tanımak için kamera erişimi gerektirir.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>TurkCalorie needs camera access to take food photos and recognize meals with AI.</string>
+
+	<!-- Photo Library Permission -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>TürkKalori, yemek fotoğraflarınızı seçmek ve paylaşmak için galeri erişimi gerektirir.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>TürkKalori, yemek fotoğraflarınızı kaydetmek için galeri erişimi gerektirir.</string>
+
+	<!-- Health Kit Permission -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>TürkKalori, kilo ve aktivite verilerinizi Apple Health ile senkronize etmek için izin gerektirir.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>TürkKalori, kalori ve besin değerlerinizi Apple Health'e kaydetmek için izin gerektirir.</string>
+
+	<!-- Notifications Permission -->
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>TürkKalori, öğün ve su hatırlatıcıları göndermek için bildirim izni gerektirir.</string>
+
+	<!-- Location Permission (for local restaurants - optional) -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>TürkKalori, yakınınızdaki restoranları göstermek için konum bilgisi kullanır.</string>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- CAPABILITIES -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<!-- Background Modes -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- APP TRANSPORT SECURITY -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- LOCALIZATION -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>tr</string>
+		<string>en</string>
+	</array>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- MINIMUM OS VERSION -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<key>MinimumOSVersion</key>
+	<string>12.0</string>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- FIREBASE & ANALYTICS -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+
+	<!-- ════════════════════════════════════════════════════════════════ -->
+	<!-- DEEP LINKING / UNIVERSAL LINKS -->
+	<!-- ════════════════════════════════════════════════════════════════ -->
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.turkkalori.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>turkkalori</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- Associated Domains for Universal Links -->
+	<!-- Requires: App ID with Associated Domains capability -->
+	<!-- Add in Xcode: Signing & Capabilities → Associated Domains -->
+	<!-- Domain: applinks:turkkalori.app -->
+
+</dict>
+</plist>

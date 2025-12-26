@@ -24,8 +24,15 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// Load signing key properties
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
-    namespace "com.Turkkalori.app"
+    namespace "com.turkkalori.app"
     compileSdk 34
     ndkVersion flutter.ndkVersion
 
@@ -43,17 +50,47 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.Turkkalori.app"
+        // IMPORTANT: Use lowercase for applicationId
+        applicationId "com.turkkalori.app"
         minSdk 21
         targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        resValue "string", "app_name", "TürkKalori"
+    }
+
+    // Signing configurations
+    signingConfigs {
+        debug {
+            // Uses default debug keystore
+        }
+
+        release {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            } else {
+                // Fallback to debug for testing
+                println "⚠️  key.properties not found, using debug signing"
+            }
+        }
     }
 
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
             signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
