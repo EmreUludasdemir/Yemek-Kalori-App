@@ -1,0 +1,124 @@
+# Flutter Build Artifacts
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Android
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/gradle/
+android/.idea/
+android/local.properties
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/*.jks
+android/*.keystore
+android/key.properties
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/.generated/
+ios/Runner.xcworkspace/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Web
+build/web/
+
+# Coverage
+coverage/
+*.lcov
+
+# Testing
+test-results/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.iml
+*.ipr
+*.iws
+
+# Git
+.git/
+.gitignore
+
+# Docker
+.docker/
+docker-compose.override.yml
+Dockerfile*
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation (optional, dokümantasyon gerekmiyorsa)
+docs/
+README.md
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Node (eğer kullanılıyorsa)
+node_modules/
+package-lock.json
+
+# Firebase
+firebase.json
+.firebaserc
+firebase-debug.log
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+# Sensitive files
+google-services.json
+GoogleService-Info.plist
+*.mobileprovision
+*.p12
+*.pem
+*.key
+
+# Large files
+assets/videos/
+assets/large_files/
+
+# Backup files
+*.backup
+*.bak
+*.old

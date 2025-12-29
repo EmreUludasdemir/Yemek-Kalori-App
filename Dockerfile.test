@@ -1,0 +1,34 @@
+# Flutter Testing Environment - Unit & Widget Tests
+# Bu Dockerfile testleri çalıştırmak için optimize edilmiştir
+
+FROM cirrusci/flutter:stable
+
+# Zaman dilimi ayarı
+ENV TZ=Europe/Istanbul
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Gerekli paketleri yükle
+USER root
+RUN apt-get update && apt-get install -y \
+    lcov \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Çalışma dizini
+WORKDIR /app
+
+# pubspec dosyalarını kopyala (cache için)
+COPY pubspec.yaml pubspec.lock ./
+
+# Bağımlılıkları yükle
+RUN flutter pub get
+
+# Tüm kaynak kodları kopyala
+COPY . .
+
+# Test coverage dizinini oluştur
+RUN mkdir -p coverage
+
+# Testleri çalıştır ve coverage raporu oluştur
+CMD ["sh", "-c", "flutter test --coverage && lcov --summary coverage/lcov.info"]

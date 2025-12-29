@@ -1,0 +1,120 @@
+version: '3.8'
+
+services:
+  # Flutter Development Environment
+  flutter-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: turkkalori-dev
+    volumes:
+      - .:/workspace
+      - flutter-pub-cache:/root/.pub-cache
+      - gradle-cache:/root/.gradle
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    networks:
+      - turkkalori-network
+    command: /bin/bash
+
+  # Flutter Test Runner
+  flutter-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: turkkalori-test
+    volumes:
+      - .:/app
+      - test-results:/app/test-results
+      - coverage:/app/coverage
+    networks:
+      - turkkalori-network
+    environment:
+      - FLUTTER_TEST=true
+    command: sh -c "flutter test --coverage && lcov --summary coverage/lcov.info"
+
+  # Flutter Web Server (Preview)
+  flutter-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: turkkalori-web
+    ports:
+      - "8080:80"
+    networks:
+      - turkkalori-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL (Supabase local alternative)
+  postgres:
+    image: postgres:15-alpine
+    container_name: turkkalori-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: turkkalori
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - turkkalori-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Supabase Local (for backend testing)
+  supabase-studio:
+    image: supabase/studio:latest
+    container_name: turkkalori-supabase-studio
+    ports:
+      - "3000:3000"
+    environment:
+      SUPABASE_URL: http://kong:8000
+      SUPABASE_PUBLIC_URL: http://localhost:8000
+      STUDIO_PG_META_URL: http://postgres-meta:8080
+    networks:
+      - turkkalori-network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  # Coverage Reporter (optional)
+  coverage-reporter:
+    image: node:18-alpine
+    container_name: turkkalori-coverage
+    volumes:
+      - ./coverage:/coverage
+    working_dir: /coverage
+    networks:
+      - turkkalori-network
+    command: sh -c "npx http-server -p 8081"
+    ports:
+      - "8081:8081"
+
+volumes:
+  flutter-pub-cache:
+    name: turkkalori-pub-cache
+  gradle-cache:
+    name: turkkalori-gradle-cache
+  test-results:
+    name: turkkalori-test-results
+  coverage:
+    name: turkkalori-coverage
+  postgres-data:
+    name: turkkalori-postgres-data
+
+networks:
+  turkkalori-network:
+    name: turkkalori-network
+    driver: bridge
