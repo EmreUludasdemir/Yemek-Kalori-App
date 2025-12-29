@@ -1,0 +1,79 @@
+# Flutter Development & Testing Environment
+# Bu Dockerfile Flutter uygulamasını test etmek için gerekli tüm araçları içerir
+
+FROM ubuntu:22.04
+
+# Zaman dilimi ayarı (interaktif promptları önlemek için)
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Istanbul
+
+# Temel paketleri yükle
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    unzip \
+    xz-utils \
+    zip \
+    libglu1-mesa \
+    openjdk-11-jdk \
+    wget \
+    vim \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
+# Android SDK için gerekli paketler
+RUN apt-get update && apt-get install -y \
+    libc6:amd64 \
+    libstdc++6:amd64 \
+    lib32z1 \
+    libbz2-1.0:amd64 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Çalışma dizini oluştur
+WORKDIR /app
+
+# Android SDK ortam değişkenleri
+ENV ANDROID_HOME=/opt/android-sdk
+ENV ANDROID_SDK_ROOT=/opt/android-sdk
+ENV PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin
+ENV PATH=${PATH}:${ANDROID_HOME}/platform-tools
+ENV PATH=${PATH}:${ANDROID_HOME}/emulator
+ENV PATH=${PATH}:${ANDROID_HOME}/build-tools/34.0.0
+
+# Android SDK'yı indir ve kur
+RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
+    cd ${ANDROID_HOME}/cmdline-tools && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && \
+    unzip commandlinetools-linux-9477386_latest.zip && \
+    mv cmdline-tools latest && \
+    rm commandlinetools-linux-9477386_latest.zip
+
+# Android SDK bileşenlerini yükle
+RUN yes | sdkmanager --licenses && \
+    sdkmanager "platform-tools" \
+    "platforms;android-34" \
+    "build-tools;34.0.0" \
+    "cmdline-tools;latest" \
+    "emulator"
+
+# Flutter SDK'yı indir ve kur
+ENV FLUTTER_HOME=/opt/flutter
+ENV PATH=${PATH}:${FLUTTER_HOME}/bin
+
+RUN git clone https://github.com/flutter/flutter.git -b stable ${FLUTTER_HOME} && \
+    flutter precache && \
+    flutter config --no-analytics && \
+    flutter doctor
+
+# Flutter'ı Android için yapılandır
+RUN flutter config --android-sdk ${ANDROID_HOME}
+
+# Çalışma dizinini ayarla
+WORKDIR /workspace
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD flutter doctor || exit 1
+
+# Default komut
+CMD ["/bin/bash"]
